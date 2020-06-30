@@ -14,7 +14,7 @@ app = Flask(__name__)
 def check():
     if request.method == "POST":
         username = request.form['log']
-        password = request.form['pas']
+        password = request.form['pass']
         query = "SELECT isCompany FROM users WHERE login = '%s' AND password = '%s'" % (username, password)
         cur.execute(query)
         row = cur.fetchone()
@@ -23,37 +23,37 @@ def check():
                 print('Company')
             else:
                 print('Owner')
+            return render_template('ok.html')
         else:
             print('No')
-        return render_template('ok.html')
+        return 'no'
     else:
-        return render_template('test.html')
+        return render_template('auth.html')
 
 
-@app.route('/reg', methods=['POST', 'GET'])
+@app.route('/registration', methods=['POST', 'GET'])
 def reg():
     if request.method == "POST":
-        name = request.form['name']
-        address = request.form['address']
-        email = request.form['email']
-        phone = request.form['phone']
-        username = request.form['log']
-        password = request.form['pas']
-        isCompany = 1
+        name = request.form['UserName']
+        address = request.form['UserAddress']
+        email = request.form['UserEmail']
+        phone = request.form['UserPhone']
+        username = request.form['UserLogin']
+        password = request.form['UserPass']
+        isCompany = request.form['GridRadios']
         query = "SELECT id FROM users WHERE login = '%s'" % username
         cur.execute(query)
         row = cur.fetchone()
         if row:
-            print('Login used')
-            return "<h1>Хуй</>"
+            return "<h1>Login used</>"
         query = "INSERT INTO users (name, address, email, phone, isCompany, login, password)" \
                 "VALUES('%s','%s','%s','%s',%d,'%s','%s')" % (name, address, email, phone, isCompany, username, password)
         cur.execute(query)
         conn.commit()
-        return '<h1>ЗБС</h1>'
+        return '<h1>Registrated</h1>'
     else:
-        return render_template('reg.html')
+        return render_template('registration.html')
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, use_reloader=True)
