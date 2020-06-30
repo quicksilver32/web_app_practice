@@ -12,5 +12,3 @@ query = 'SELECT * FROM weekdays'
 cur.execute(query)
 for row in cur:
  print(row)
-
-input('Press ENTER to exit')
