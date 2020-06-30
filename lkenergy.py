@@ -7,13 +7,11 @@ password = 'Team11$%'
 driver = '{ODBC Driver 13 for SQL Server}'
 conn = pyodbc.connect('DRIVER=' + driver + ';PORT=1433;SERVER=' + server + ';PORT=1443;DATABASE=' + database + ';UID=' + username + ';PWD=' + password)
 cur = conn.cursor()
-query = 'SELECT * FROM weekdays'
-cur.execute(query)
 
 app = Flask(__name__)
 
 @app.route('/', methods=['POST', 'GET'])
-def test():
+def check():
     if request.method == "POST":
         username = request.form['log']
         password = request.form['pas']
