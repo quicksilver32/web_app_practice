@@ -44,13 +44,17 @@ def reg():
         query = "SELECT id FROM users WHERE login = '%s'" % username
         cur.execute(query)
         row = cur.fetchone()
+        print('1')
         if row:
+            print('2')
             return "<h1>Login used</>"
-        query = "INSERT INTO users (name, address, email, phone, isCompany, login, password)" \
-                "VALUES('%s','%s','%s','%s',%d,'%s','%s')" % (name, address, email, phone, isCompany, username, password)
-        cur.execute(query)
-        conn.commit()
-        return '<h1>Registrated</h1>'
+        else:
+            print('3')
+            query = "INSERT INTO users (name, address, email, phone, isCompany, login, password)" \
+                "VALUES('%s','%s','%s','%s',%s,'%s','%s')" % (name, address, email, phone, isCompany, username, password)
+            cur.execute(query)
+            conn.commit()
+            return '<h1>Registrated</h1>'
     else:
         return render_template('registration.html')
 
