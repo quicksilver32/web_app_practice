@@ -44,13 +44,12 @@ def reg():
         cur.execute(query)
         row = cur.fetchone()
         if row:
-            print('Login used')
-            return "<h1>Хуй</>"
+            return "<h1>Login used</>"
         query = "INSERT INTO users (name, address, email, phone, isCompany, login, password)" \
                 "VALUES('%s','%s','%s','%s',%d,'%s','%s')" % (name, address, email, phone, isCompany, username, password)
         cur.execute(query)
         conn.commit()
-        return '<h1>ЗБС</h1>'
+        return '<h1>Ok</h1>'
     else:
         return render_template('reg.html')
 
