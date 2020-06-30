@@ -23,31 +23,31 @@
 </head>
 <body>
 	<div class="form-register">
-		<form method="POST">
+		<form action="" method="POST">
 			<div class="form-row">
 				<div class="form-group col-md-6">
 					<label for="validationCustom01"><span>Название организации<span/></label>
-					<input type="text" class="form-control" id="UserName" placeholder="Поле ввода">
+					<input type="text" class="form-control" name="UserName" placeholder="Поле ввода">
 				</div>
 				<div class="form-group col-md-6">
 					<label for="exampleInputEmail1">Ваша почта</label>
-					<input type="email" class="form-control" id="UserEmail" aria-describedby="emailHelp" placeholder="ivan@mail.ru">
+					<input type="email" class="form-control" name="UserEmail" aria-describedby="emailHelp" placeholder="ivan@mail.ru">
 				</div>
 				<div class="form-group col-md-6">
 					<label for="exampleInputPassword1">Логин</label>
-					<input type="login" class="form-control" id="UserLogin" placeholder="Ivan">
+					<input type="login" class="form-control" name="UserLogin" placeholder="Ivan">
 				</div>
 				<div class="form-group col-md-6">
 					<label for="exampleInputPassword1">Пароль</label>
-					<input type="password" class="form-control" id="UserPass" placeholder="Придумайте пароль">
+					<input type="password" class="form-control" name="UserPass" placeholder="Придумайте пароль">
 				</div>
 				<div class="form-group col-md-6">
 					<label for="exampleInputPassword1p">Юридический Адрес</label>
-					<input type="inputAddress" class="form-control" id="UserAddress" placeholder="ул.Союзная д.1 кв.1">
+					<input type="inputAddress" class="form-control" name="UserAddress" placeholder="ул.Союзная д.1 кв.1">
 				</div>
 				<div class="form-group col-md-6">
 					<label for="exampleInputPassword1">Номер телефона</label>
-					<input type="password" class="form-control" id="UserPhone" placeholder="+7 999 999 9999">
+					<input type="text" class="form-control" name="UserPhone" placeholder="+7 999 999 9999">
 				</div>
 				<div class="form-checked ml-4">
 					<div class="form-check">
@@ -63,8 +63,8 @@
 						</label>
 					</div>
 				</div>
-				<div class="col-12"><button  onclick="location.href='/'" type="submit" class="btn btn-primary">Зарегистрироваться</button></div>
-			</form>
+				<div class="col-12"><button type="submit" class="btn btn-primary">Зарегистрироваться</button></div>
+		</form>
 
 		</div>
 
