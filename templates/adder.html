@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <title>Adder</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->  
+    <link rel="icon" type="image/png" href="../static/images/icons/favicon.ico"/>
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../static/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../static/css/animate.css">
+    <!--===============================================================================================-->  
+    <link rel="stylesheet" type="text/css" href="../static/css/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../static/css/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="../static/css/util.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/main.css">
+    <!--===============================================================================================-->
+</head>
+<body>
+    <div class="form-adder">
+        <form action="" method="POST">
+            <div class="form-row">
+                </div>
+                    <div class="form-check">
+                        <input class="form-check-input" required type="radio" name="GridRadios" id="Home" value="1" checked>
+                        <label class="form-check-label" for="gridRadios1">
+                            Дом
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" required type="radio" name="GridRadios" id="Appartment" value="0">
+                        <label class="form-check-label" for="gridRadios2">
+                            Квартира
+                        </label>
+                </div>
+                <div class="container my-4">
+                    <label for="exampleInputPassword1p">Адрес</label>
+                    
+                    <div class="btn-group dropdown">
+                        <button type="button" class="btn btn-outline btn-default dropdown-toggle" id="select" data-toggle="dropdown" aria-expanded="false">
+                            <span class="caret">Найдите адрес</span>
+                        </button>
+                        <ul class="dropdown-menu bullet dropdown-menu-right dropdown-search-box" aria-labelledby="select" role="menu" id="ul_json">
+                            <li role="presentation" class="search-box"><input type="text" class="form-control" placeholder="Type text..." value="" name="search" /></li>
+                        </ul>
+                    </div>
+
+                    <fieldset disabled>
+                        <div class="form-group" id="label">
+
+                        </div>
+                    </fieldset>
+
+                </div>
+                <div class="col-12"><button type="submit" class="btn btn-primary">Добавить</button></div>
+        </form>
+        </div>
+
+        <!--===============================================================================================-->  
+        <script src="../static/js/jquery-3.2.1.min.js"></script>
+        <!--===============================================================================================-->
+        <script src="../static/js/popper.js"></script>
+        <script src="../static/js/bootstrap.min.js"></script>
+        <!--===============================================================================================-->
+        <script src="../static/js/select2.min.js"></script>
+        <!--===============================================================================================-->
+        <script src="../static/js/tilt.jquery.min.js"></script>
+        <!--===============================================================================================-->
+        <script src="../static/js/main.js"></script>
+        <script src="../static/js/adder.js"></script>
+</body>
+</html>

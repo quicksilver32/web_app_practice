@@ -47,7 +47,7 @@ def auth():
 def main():
     if session != {}:
         print('main', session)
-        return render_template('ok.html')
+        return render_template('main.html')
     else:
         return redirect('/')
 
@@ -69,12 +69,12 @@ def get_jsn():
 
         else:
             obj[count].update({'type': 'Квартира'})
-            obj[count].update({'address': row[0] + row[1]})
+            obj[count].update({'address': row[0] + ', кв.' + row[1]})
         count += 1
     if request.method == "POST":
         return jsonify(obj)
     else:
-        return render_template('ok.html')
+        return render_template('main.html')
 
 
 @app.route('/registration', methods=['POST', 'GET'])
@@ -105,11 +105,32 @@ def reg():
         return render_template('registration.html')
 
 
-@app.route("/log_out", methods=["GET"])
-def log_out():
+@app.route("/logout", methods=["GET"])
+def logout():
     session.pop('id', None)
     session.pop('isCompany', None)
     return redirect('/')
+
+
+@app.route('/adder', methods=['POST', 'GET'])
+def adder():
+    return render_template('adder.html')
+
+
+@app.route('/adder_json', methods=['POST', 'GET'])
+def adder_json():
+    query = """SELECT address, room_count_live FROM buildings ORDER BY address """
+    cur.execute(query)
+    rows = cur.fetchall()
+    buildings = {}
+    count = 0
+    for row in rows:
+        buildings.update({count: {}})
+        buildings[count].update({'address': row[0]})
+        buildings[count].update({'room_count': row[1]})
+        count += 1
+    print(buildings)
+    return jsonify(buildings)
 
 
 if __name__ == "__main__":
