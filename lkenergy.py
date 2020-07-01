@@ -21,7 +21,7 @@ def check():
     if request.method == "POST":
         username = request.form['log']
         password = request.form['pass']
-        query = "SELECT isCompany, id FROM users WHERE login = '%s' AND password = '%s'" % (username, password)
+        query = "SELECT isCompany, id FROM users WHERE login = N'%s' AND password = N'%s'" % (username, password)
         cur.execute(query)
         row = cur.fetchone()
         if row:
@@ -87,7 +87,7 @@ def reg():
         username = request.form['UserLogin']
         password = request.form['UserPass']
         isCompany = request.form['GridRadios']
-        query = "SELECT id FROM users WHERE login = '%s'" % username
+        query = "SELECT id FROM users WHERE login = N'%s'" % username
         cur.execute(query)
         row = cur.fetchone()
         print('1')
@@ -97,7 +97,7 @@ def reg():
         else:
             print('3')
             query = "INSERT INTO users (name, address, email, phone, isCompany, login, password)" \
-                "VALUES('%s','%s','%s','%s',%s,'%s','%s')" % (name, address, email, phone, isCompany, username, password)
+                "VALUES(N'%s',N'%s',N'%s',N'%s',%d,N'%s',N'%s')" % (name, address, email, phone, isCompany, username, password)
             cur.execute(query)
             conn.commit()
             return '<h1>Registrated</h1>'
