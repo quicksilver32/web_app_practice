@@ -17,7 +17,7 @@ session = {}
 def check():
     print('/', session)
     if session:
-        return redirect("/ok")
+        return redirect("/main")
     if request.method == "POST":
         username = request.form['log']
         password = request.form['pass']
@@ -46,7 +46,7 @@ def auth():
 @app.route('/main', methods=['POST', 'GET'])
 def main():
     if session != {}:
-        print('ok', session)
+        print('main', session)
         return render_template('ok.html')
     else:
         return redirect('/')

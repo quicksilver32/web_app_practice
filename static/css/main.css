@@ -168,11 +168,8 @@ iframe {
   justify-content: center;
   align-items: center;
   padding: 15px;
-  background: black;
-  background: -webkit-linear-gradient(-135deg, #c850c0, #4158d0);
-  background: -o-linear-gradient(-135deg, #c850c0, #4158d0);
-  background: -moz-linear-gradient(-135deg, #c850c0, #4158d0);
-  background: linear-gradient(-135deg, #c850c0, #4158d0);
+  background: white;
+
 }
 
 .wrap-login100 {
@@ -465,12 +462,13 @@ iframe {
 
 .form-register {
 	width: 500px;
-	margin:100px;
+	  margin:200px auto 50px;
 }
 
 .form-control {
 	border: 1px solid #ccc;
 }
+
 
 INPUT.text {
     border: 1px solid #ccc; /* Исходная рамка вокруг поля */
@@ -478,5 +476,3 @@ INPUT.text {
    }
    INPUT.text:focus {
     b
-
-
