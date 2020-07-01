@@ -97,7 +97,7 @@ def reg():
         else:
             print('3')
             query = "INSERT INTO users (name, address, email, phone, isCompany, login, password)" \
-                "VALUES(N'%s',N'%s',N'%s',N'%s',%d,N'%s',N'%s')" % (name, address, email, phone, isCompany, username, password)
+                "VALUES(N'%s',N'%s',N'%s',N'%s',%s,N'%s',N'%s')" % (name, address, email, phone, isCompany, username, password)
             cur.execute(query)
             conn.commit()
             return '<h1>Registrated</h1>'
