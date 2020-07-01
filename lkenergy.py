@@ -10,14 +10,14 @@ cur = conn.cursor()
 
 app = Flask(__name__)
 app.secret_key = "wowow"
-# session = {}
+session = {}
 
 
 @app.route('/', methods=['POST', 'GET'])
 def check():
-    # print('/', session)
-    # if session:
-    #     return redirect("/ok")
+    print('/', session)
+    if session:
+        return redirect("/ok")
     if request.method == "POST":
         username = request.form['log']
         password = request.form['pass']
@@ -29,8 +29,8 @@ def check():
                 print('Company')
             else:
                 print('Owner')
-            # session['isCompany'] = row.isCompany
-            # session['id'] = row.id
+            session['isCompany'] = row.isCompany
+            session['id'] = row.id
             return redirect('/ok')
         else:
             print('No')
@@ -38,15 +38,16 @@ def check():
     else:
         return render_template('auth.html')
 
-# @app.route('/ok', methods=['POST', 'GET'])
-# def ok():
-#     print('ok', session)
-#     if request.method == "POST":
-#         # session.pop('id', None)
-#         # session.pop('isCompany', None)
-#         # return redirect('/')
-#     else:
-#         return render_template('ok.html')
+
+def auth():
+    return render_template('auth.html')
+
+
+@app.route('/ok', methods=['POST', 'GET'])
+def ok():
+    print('ok', session)
+    return render_template('ok.html')
+
 
 @app.route('/registration', methods=['POST', 'GET'])
 def reg():
@@ -74,6 +75,13 @@ def reg():
             return '<h1>Registrated</h1>'
     else:
         return render_template('registration.html')
+
+
+@app.route("/log_out", methods=["GET"])
+def log_out():
+    session.pop('id', None)
+    session.pop('isCompany', None)
+    return redirect('/')
 
 
 if __name__ == "__main__":
