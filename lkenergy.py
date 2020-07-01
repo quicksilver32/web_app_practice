@@ -43,10 +43,13 @@ def auth():
     return render_template('auth.html')
 
 
-@app.route('/ok', methods=['POST', 'GET'])
-def ok():
-    print('ok', session)
-    return render_template('ok.html')
+@app.route('/main', methods=['POST', 'GET'])
+def main():
+    if session != {}:
+        print('ok', session)
+        return render_template('ok.html')
+    else:
+        return redirect('/')
 
 
 @app.route('/registration', methods=['POST', 'GET'])
