@@ -69,7 +69,7 @@ def get_jsn():
 
         else:
             obj[count].update({'type': 'Квартира'})
-            obj[count].update({'address': row[0] + row[1]})
+            obj[count].update({'address': row[0] + ', кв.' + row[1]})
         count += 1
     if request.method == "POST":
         return jsonify(obj)
