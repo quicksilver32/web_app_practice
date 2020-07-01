@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, jsonify
 import pyodbc
 server = 'student-alan.database.windows.net'
 database = 'StudentDB01'
@@ -31,7 +31,7 @@ def check():
                 print('Owner')
             session['isCompany'] = row.isCompany
             session['id'] = row.id
-            return redirect('/ok')
+            return redirect('/main')
         else:
             print('No')
         return 'no'
@@ -50,6 +50,31 @@ def main():
         return render_template('ok.html')
     else:
         return redirect('/')
+
+
+@app.route('/get_json_obj', methods=['POST', 'GET'])
+def get_jsn():
+    id = session['id']
+    query = "SELECT b.address, o.flat FROM buildings AS b JOIN objects AS o ON b.id = o.buildingId WHERE b.id IN " \
+            "(SELECT buildingID FROM objects WHERE userId = %d)" % id
+    cur.execute(query)
+    rows = cur.fetchall()
+    obj = {}
+    count = 0
+    for row in rows:
+        obj.update({count: {}})
+        if row[1] is None:
+            obj[count].update({'type': 'Жилой дом'})
+            obj[count].update({'address': row[0]})
+
+        else:
+            obj[count].update({'type': 'Квартира'})
+            obj[count].update({'address': row[0] + row[1]})
+        count += 1
+    if request.method == "POST":
+        return jsonify(obj)
+    else:
+        return render_template('ok.html')
 
 
 @app.route('/registration', methods=['POST', 'GET'])
