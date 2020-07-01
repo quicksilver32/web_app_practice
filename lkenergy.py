@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 import pyodbc
 server = 'student-alan.database.windows.net'
 database = 'StudentDB01'
@@ -9,13 +9,19 @@ conn = pyodbc.connect('DRIVER=' + driver + ';PORT=1433;SERVER=' + server + ';POR
 cur = conn.cursor()
 
 app = Flask(__name__)
+app.secret_key = "wowow"
+# session = {}
+
 
 @app.route('/', methods=['POST', 'GET'])
 def check():
+    # print('/', session)
+    # if session:
+    #     return redirect("/ok")
     if request.method == "POST":
         username = request.form['log']
         password = request.form['pass']
-        query = "SELECT isCompany FROM users WHERE login = '%s' AND password = '%s'" % (username, password)
+        query = "SELECT isCompany, id FROM users WHERE login = '%s' AND password = '%s'" % (username, password)
         cur.execute(query)
         row = cur.fetchone()
         if row:
@@ -23,13 +29,24 @@ def check():
                 print('Company')
             else:
                 print('Owner')
-            return render_template('ok.html')
+            # session['isCompany'] = row.isCompany
+            # session['id'] = row.id
+            return redirect('/ok')
         else:
             print('No')
         return 'no'
     else:
         return render_template('auth.html')
 
+# @app.route('/ok', methods=['POST', 'GET'])
+# def ok():
+#     print('ok', session)
+#     if request.method == "POST":
+#         # session.pop('id', None)
+#         # session.pop('isCompany', None)
+#         # return redirect('/')
+#     else:
+#         return render_template('ok.html')
 
 @app.route('/registration', methods=['POST', 'GET'])
 def reg():
