@@ -15,25 +15,24 @@ session = {}
 
 @app.route('/', methods=['POST', 'GET'])
 def check():
-    print('/', session)
     if session:
         return redirect("/main")
     if request.method == "POST":
         username = request.form['log']
         password = request.form['pass']
+        query = "SELECT id FROM admins WHERE login = N'%s' AND password = N'%s'" % (username, password)
+        cur.execute(query)
+        row = cur.fetchone()
+        if row:
+            session['isAdmin'] = True
+            return redirect('/admin')
         query = "SELECT isCompany, id FROM users WHERE login = N'%s' AND password = N'%s'" % (username, password)
         cur.execute(query)
         row = cur.fetchone()
         if row:
-            if row.isCompany:
-                print('Company')
-            else:
-                print('Owner')
             session['isCompany'] = row.isCompany
             session['id'] = row.id
             return redirect('/main')
-        else:
-            print('No')
         return 'no'
     else:
         return render_template('auth.html')
@@ -45,11 +44,9 @@ def auth():
 
 @app.route('/main', methods=['POST', 'GET'])
 def main():
-    if session != {}:
-        print('main', session)
-        return render_template('main.html')
-    else:
+    if session == {}:
         return redirect('/')
+    return render_template('main.html')
 
 
 @app.route('/get_json_obj', methods=['POST', 'GET'])
@@ -90,12 +87,9 @@ def reg():
         query = "SELECT id FROM users WHERE login = N'%s'" % username
         cur.execute(query)
         row = cur.fetchone()
-        print('1')
         if row:
-            print('2')
             return "<h1>Login used</>"
         else:
-            print('3')
             query = "INSERT INTO users (name, address, email, phone, isCompany, login, password)" \
                 "VALUES(N'%s',N'%s',N'%s',N'%s',%s,N'%s',N'%s')" % (name, address, email, phone, isCompany, username, password)
             cur.execute(query)
@@ -108,17 +102,22 @@ def reg():
 @app.route("/logout", methods=["GET"])
 def logout():
     session.pop('id', None)
+    session.pop('isAdmin', None)
     session.pop('isCompany', None)
     return redirect('/')
 
 
 @app.route('/adder', methods=['POST', 'GET'])
 def adder():
+    if session == {}:
+        return redirect('/')
     return render_template('adder.html')
 
 
 @app.route('/adder_json', methods=['POST', 'GET'])
 def adder_json():
+    if session == {}:
+        return redirect('/')
     query = """SELECT address, room_count_live FROM buildings ORDER BY address """
     cur.execute(query)
     rows = cur.fetchall()
@@ -129,8 +128,20 @@ def adder_json():
         buildings[count].update({'address': row[0]})
         buildings[count].update({'room_count': row[1]})
         count += 1
-    print(buildings)
+    buildings.update({count: session['isCompany']})
     return jsonify(buildings)
+
+@app.route('/admin', methods=['POST', 'GET'])
+def admin():
+    if session.get('isAdmin') == None:
+        return redirect('/')
+    return render_template('admin.html')
+
+@app.route('/requests', methods=['POST', 'GET'])
+def requests():
+    if session.get('isAdmin') == None:
+        return redirect('/')
+    return render_template('requests.html')
 
 
 if __name__ == "__main__":

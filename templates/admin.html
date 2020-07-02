@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,13 +7,10 @@
     <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <link rel="stylesheet" href="../static/css/card.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="icon" type="image/png" href="../static/images/icons/favicon.ico"/>
-    
 </head>
 <body id="body">
 
     <div id="app">
-
         <header>
         	<div>
             	<button @click="show = !show">
@@ -24,16 +20,17 @@
             </div>
         </header>
         <aside v-show="show" transition="slide">
-        	<button onclick="location.href='/main'" type="button" class="btn btn-primary btn-lg btn-block">Главная</button>
+        	<button onclick="location.href='/requests'" type="button" class="btn btn-primary btn-lg btn-block">Заявки</button>
         	<button onclick="location.href='/dashboard'" type="button" class="btn btn-primary btn-lg btn-block">Дашборд</button>
-            <button onclick="location.href='/adder'" type="button" class="btn btn-primary btn-lg btn-block">Добавить объект</button>
             <button onclick="location.href='/logout'" type="button" class="btn btn-primary btn-lg btn-block">Выход</button>
         </aside>
 
         <div class="card-deck">
-                <div class="row mb-3" style="margin-left: 30px; margin-right: 30px; margin-top:100px" id="row-card">
 
-                </div>
+            <div class="row" style="margin-left: 30px; margin-right: 30px; margin-top:100px" id="row-card">
+
+            </div>
+
         </div>
 
 

@@ -1,44 +1,48 @@
 <!DOCTYPE html>
+
 <html lang="ru">
 <head>
-    <title>Adder</title>
     <meta charset="UTF-8">
+    <title>Document</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!--===============================================================================================-->  
+
+    <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="../static/css/adder.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="icon" type="image/png" href="../static/images/icons/favicon.ico"/>
-    <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css">
-    <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="../static/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-    <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="../static/css/animate.css">
-    <!--===============================================================================================-->  
     <link rel="stylesheet" type="text/css" href="../static/css/hamburgers.min.css">
-    <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="../static/css/select2.min.css">
-    <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="../static/css/util.css">
     <link rel="stylesheet" type="text/css" href="../static/css/main.css">
-    <!--===============================================================================================-->
+
 </head>
-<body>
-    <div class="form-adder">
+<body id="body">
+
+    <div id="app">
+
+        <header>
+            <div>
+                <button style="width: 40px;" @click="show = !show">
+                    <i class="ion-navicon"></i>
+                </button>
+                ALAN-Energy
+            </div>
+        </header>
+        <aside v-show="show" transition="slide">
+            <button onclick="location.href='/main'" type="button" class="btn btn-primary btn-lg btn-block">Главная</button>
+            <button onclick="location.href='/dashboard'" type="button" class="btn btn-primary btn-lg btn-block">Дашборд</button>
+            <button onclick="location.href='/adder'" type="button" class="btn btn-primary btn-lg btn-block">Добавить объект</button>
+            <button onclick="location.href='/logout'" type="button" class="btn btn-primary btn-lg btn-block">Выход</button>
+        </aside>
+
+        <div class="form-adder">
         <form action="" method="POST">
             <div class="form-row">
                 </div>
-                    <div class="form-check">
-                        <input class="form-check-input" required type="radio" name="GridRadios" id="Home" value="1" checked>
-                        <label class="form-check-label" for="gridRadios1">
-                            Дом
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" required type="radio" name="GridRadios" id="Appartment" value="0">
-                        <label class="form-check-label" for="gridRadios2">
-                            Квартира
-                        </label>
-                </div>
-                <div class="container my-4">
+                <div id="Home" class="container my-4">
                     <label for="exampleInputPassword1p">Адрес</label>
                     
                     <div class="btn-group dropdown">
@@ -51,27 +55,53 @@
                     </div>
 
                     <fieldset disabled>
-                        <div class="form-group" id="label">
+                        <input id="address" type="text" required class="form-control" name="Address" placeholder="">
+                    </fieldset>
 
+                </div>
+                <div id="Appartment" class="container my-4">
+                    <label for="exampleInputPassword1p">Квартира</label>
+                    
+                    <div class="btn-group dropdown">
+                        <button type="button" class="btn btn-outline btn-default dropdown-toggle" id="select" data-toggle="dropdown" aria-expanded="false">
+                            <span class="caret">Найдите номер</span>
+                        </button>
+                        <ul class="dropdown-menu bullet dropdown-menu-right dropdown-search-box" aria-labelledby="select" role="menu" id="ul_json2">
+                            <li role="presentation" class="search-box"><input type="text" class="form-control" placeholder="Type text..." value="" name="search" /></li>
+                        </ul>
+                    </div>
+
+                    <fieldset disabled>
+                        <div class="form-group col-md-6">    
+                            <input id="room" disabled type="text" required class="form-control" name="Room" placeholder="">
                         </div>
                     </fieldset>
 
                 </div>
-                <div class="col-12"><button type="submit" class="btn btn-primary">Добавить</button></div>
+                <div class="col-12"><button id="submit" type="submit" class="btn btn-primary">Добавить</button></div>
         </form>
         </div>
 
-        <!--===============================================================================================-->  
-        <script src="../static/js/jquery-3.2.1.min.js"></script>
-        <!--===============================================================================================-->
-        <script src="../static/js/popper.js"></script>
-        <script src="../static/js/bootstrap.min.js"></script>
-        <!--===============================================================================================-->
-        <script src="../static/js/select2.min.js"></script>
-        <!--===============================================================================================-->
-        <script src="../static/js/tilt.jquery.min.js"></script>
-        <!--===============================================================================================-->
-        <script src="../static/js/main.js"></script>
-        <script src="../static/js/adder.js"></script>
+
+    </div>
+
+
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/vue/1.0.26/vue.min.js"></script>
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                show: false
+            }
+        })
+
+    </script>
+    <script src="../static/js/jquery-3.2.1.min.js"></script>
+    <script src="../static/js/popper.js"></script>
+    <script src="../static/js/bootstrap.min.js"></script>
+    <script src="../static/js/select2.min.js"></script>
+    <script src="../static/js/tilt.jquery.min.js"></script>
+    <script src="../static/js/main.js"></script>
+    <script src="../static/js/adder.js"></script>
 </body>
 </html>

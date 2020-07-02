@@ -465,10 +465,6 @@ iframe {
 	  margin:200px auto 50px;
 }
 
-.form-adder {
-  width: 500px;
-    margin:200px auto 50px;
-}
 
 .form-control {
 	border: 1px solid #ccc;
@@ -485,6 +481,10 @@ ul.dropdown-search-box .search-box {
   border-bottom: 1px solid #ddd;
 }
 
+.form-adder {
+  width: 500px;
+    margin:200px auto 50px;
+}
 
 
 INPUT.text {
@@ -493,14 +493,3 @@ INPUT.text {
    }
    INPUT.text:focus {
     b
-
-ul.dropdown-search-box {
-  max-height: 300px;
-  width: 270px;
-  overflow-y: auto;
-}
-
-ul.dropdown-search-box .search-box {
-  padding: 0 5px 5px 5px;
-  border-bottom: 1px solid #ddd;
-}
