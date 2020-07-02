@@ -18,7 +18,9 @@ fetch('/adder_json', {method: 'POST'}).then(res => res.json()).then(function (da
     };
 
     document.getElementById('address').value = data[0]['address']
+    document.getElementById('hidden_address').value = data[0]['address']
     document.getElementById('room').value = 1;
+    document.getElementById('hidden_room').value = 1;
 
     for(key in data) {
         var l = ''
@@ -33,9 +35,10 @@ fetch('/adder_json', {method: 'POST'}).then(res => res.json()).then(function (da
     var id = e.target.id
     var id_elem = document.getElementById(id)
     document.getElementById('address').value = id_elem.textContent
+    document.getElementById('hidden_address').value = id_elem.textContent
 
-     $("#ul_json2").empty();
-     document.getElementById('room').value = 1;
+    $("#ul_json2").empty();
+    document.getElementById('room').value = 1;
 
     for (let i=1; i<=data[id]['room_count']; i++){
        var li_jsn2 = document.createElement('li')
@@ -51,6 +54,7 @@ fetch('/adder_json', {method: 'POST'}).then(res => res.json()).then(function (da
     var id = e.target.id
     var id_elem = document.getElementById(id)
     document.getElementById('room').value = id_elem.textContent
+    document.getElementById('hidden_room').value = id_elem.textContent
     });
 });
 

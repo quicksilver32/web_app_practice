@@ -54,9 +54,10 @@
                         </ul>
                     </div>
 
-                    <fieldset disabled>
-                        <input id="address" type="text" required class="form-control" name="Address" placeholder="">
-                    </fieldset>
+<!--                    <fieldset disabled>-->
+                        <input id="address" disabled type="text" required class="form-control" name="address" placeholder="">
+                        <input type="hidden" name="hidden_address" value="" id="hidden_address" />
+<!--                    </fieldset>-->
 
                 </div>
                 <div id="Appartment" class="container my-4">
@@ -71,11 +72,11 @@
                         </ul>
                     </div>
 
-                    <fieldset disabled>
-                        <div class="form-group col-md-6">    
-                            <input id="room" disabled type="text" required class="form-control" name="Room" placeholder="">
-                        </div>
-                    </fieldset>
+
+                    <div class="form-group col-md-6">
+                        <input id="room" disabled type="text" required class="form-control" name="room" placeholder="">
+                        <input type="hidden" name="hidden_room" value="" id="hidden_room" />
+                    </div>
 
                 </div>
                 <div class="col-12"><button id="submit" type="submit" class="btn btn-primary">Добавить</button></div>

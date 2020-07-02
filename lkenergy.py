@@ -111,7 +111,21 @@ def logout():
 def adder():
     if session == {}:
         return redirect('/')
-    return render_template('adder.html')
+    if request.method == "POST":
+        address = request.form['hidden_address']
+        room = request.form['hidden_room']
+        userId = session['id']
+        if session['isCompany']:
+            query = "INSERT INTO requests (userId, BuildingId)" \
+                    "VALUES(N'%s', (SELECT id FROM buildings WHERE address = N'%s'))" % (userId, address)
+        else:
+            query = "INSERT INTO requests (userId, BuildingId, flat)" \
+                    "VALUES(N'%s', (SELECT id FROM buildings WHERE address = N'%s'), N'%s')" % (userId, address, room)
+        cur.execute(query)
+        conn.commit()
+        return redirect('/adder')
+    else:
+        return render_template('adder.html')
 
 
 @app.route('/adder_json', methods=['POST', 'GET'])
