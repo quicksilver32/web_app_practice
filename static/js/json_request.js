@@ -39,7 +39,7 @@ fetch('/json_request', {method: 'POST'}).then(res => res.json()).then(function (
           div.setAttribute('class','card-body')
           body.appendChild(col)
           if (data[key]['room']){
-              var room = ' кв. ' + data[key]['room']
+              var room = ', кв. ' + data[key]['room']
           };
           console.log(room)
           p.appendChild(document.createTextNode(data[key]['address'] + room));
