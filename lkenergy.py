@@ -182,5 +182,24 @@ def requests():
     return render_template('requests.html')
 
 
+@app.route("/json_request", methods=['POST', 'GET'])
+def json_request():
+    query = "SELECT r.id, r.userId, r.buildingId, r.flat, u.name, b.address FROM requests AS r JOIN buildings AS b " \
+            "ON r.BuildingId = b.id JOIN users AS u ON r.userId = u.id"
+    cur.execute(query)
+    rows = cur.fetchall()
+    requests = {}
+    count = 0
+    for row in rows:
+        requests.update({count: {}})
+        requests[count].update({'requestId': row.id})
+        requests[count].update({'userId': row.userId})
+        requests[count].update({'buildingId': row.buildingId})
+        requests[count].update({'room': row.flat})
+        requests[count].update({'userName': row.name})
+        count += 1
+    return jsonify(requests)
+
+
 if __name__ == "__main__":
     app.run(debug=True, use_reloader=True)
