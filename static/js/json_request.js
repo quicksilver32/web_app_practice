@@ -3,7 +3,6 @@ fetch('/json_request', {method: 'POST'}).then(res => res.json()).then(function (
     console.log(data)
     var body = document.getElementById('row-card');
 
-
     for(key in data) {
 
           var div = document.createElement('div');
@@ -16,17 +15,28 @@ fetch('/json_request', {method: 'POST'}).then(res => res.json()).then(function (
           div_cont1.setAttribute('class', 'container')
           var div_cont2 = document.createElement('div')
           div_cont2.setAttribute('class', 'container')
+          if (data[key]['room'] == null){
+              var btn_room = ''
+          } else {
+            btn_room = data[key]['room']
+          };
+          var btn_value = data[key]['userId'] + '_' + data[key]['buildingId'] + "_" + btn_room + "_" + data[key]['requestId']
+
 
 
 
           var but1 = document.createElement('button')
           but1.innerHTML = 'Принять';
           var but2 = document.createElement('button')
+          var form = document.createElement('form')
+          form.setAttribute('action', '/requests')
           but2.innerHTML = 'Отклонить';
           but1.setAttribute('class', 'btn btn-outline-success btn-lg btn-block')
-          //but1.setAttribute('style', 'color: #00FF7F')
+          but1.setAttribute('value', btn_value+'_accept')
+          but1.setAttribute('id', key+'accept')
           but2.setAttribute('class', 'btn btn-outline-danger btn-lg btn-block')
-         //but2.setAttribute('style', 'background-color: #fcfcfc')
+          but2.setAttribute('value', btn_value+'_decline')
+          but2.setAttribute('id', key+'decline')
           div_cont1.appendChild(but1)
           div_cont2.appendChild(but2)
 
@@ -40,8 +50,9 @@ fetch('/json_request', {method: 'POST'}).then(res => res.json()).then(function (
           body.appendChild(col)
           if (data[key]['room']){
               var room = ', кв. ' + data[key]['room']
-          };
-          console.log(room)
+          } else {
+                room = ''
+          }
           p.appendChild(document.createTextNode(data[key]['address'] + room));
           room = ''
           h5.appendChild(document.createTextNode(data[key]['userName']));
@@ -53,7 +64,11 @@ fetch('/json_request', {method: 'POST'}).then(res => res.json()).then(function (
 
           div2.appendChild(div)
           col.appendChild(div2)
+          //form.appendChild(div2)
 };
-var test = document.getElementById('0')
-console.log(test.textContent)
+$('button').on('click', function(e){
+    var id = e.target.id
+    var id_elem = document.getElementById(id)
+    fetch('/req_change?data='+id_elem.value);
+    });
 });
