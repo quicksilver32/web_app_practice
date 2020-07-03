@@ -1,4 +1,7 @@
 console.log("=== Get Start ===") // старт скрипта
+function refresh() {
+    location.reload()
+}
 fetch('/json_request', {method: 'POST'}).then(res => res.json()).then(function (data) { //фуункция получения json
     console.log(data)
     var body = document.getElementById('row-card');
@@ -22,20 +25,17 @@ fetch('/json_request', {method: 'POST'}).then(res => res.json()).then(function (
           };
           var btn_value = data[key]['userId'] + '_' + data[key]['buildingId'] + "_" + btn_room + "_" + data[key]['requestId']
 
-
-
-
           var but1 = document.createElement('button')
           but1.innerHTML = 'Принять';
           var but2 = document.createElement('button')
-          var form = document.createElement('form')
-          form.setAttribute('action', '/requests')
           but2.innerHTML = 'Отклонить';
           but1.setAttribute('class', 'btn btn-outline-success btn-lg btn-block')
           but1.setAttribute('value', btn_value+'_accept')
+          but1.setAttribute('onclick', 'setTimeout(refresh, 100)')
           but1.setAttribute('id', key+'accept')
           but2.setAttribute('class', 'btn btn-outline-danger btn-lg btn-block')
           but2.setAttribute('value', btn_value+'_decline')
+          but2.setAttribute('onclick', 'setTimeout(refresh, 100)')
           but2.setAttribute('id', key+'decline')
           div_cont1.appendChild(but1)
           div_cont2.appendChild(but2)
@@ -64,7 +64,6 @@ fetch('/json_request', {method: 'POST'}).then(res => res.json()).then(function (
 
           div2.appendChild(div)
           col.appendChild(div2)
-          //form.appendChild(div2)
 };
 $('button').on('click', function(e){
     var id = e.target.id

@@ -189,6 +189,7 @@ def requests():
 def json_request():
     query = "SELECT r.id, r.userId, r.buildingId, r.flat, u.name, b.address FROM requests AS r JOIN buildings AS b " \
             "ON r.BuildingId = b.id JOIN users AS u ON r.userId = u.id"
+    print(query)
     cur.execute(query)
     rows = cur.fetchall()
     requests = {}
@@ -209,7 +210,6 @@ def json_request():
 def req_change():
     data = request.args.get('data')
     data = data.split('_')
-    print(data)
     data[0] = int(data[0])
     data[1] = int(data[1])
     data[3] = int(data[3])
@@ -218,13 +218,9 @@ def req_change():
             query = "INSERT INTO objects (userId, buildingId) VALUES (%d, %d)" % (data[0], data[1])
         else:
             query = "INSERT INTO objects (userId, buildingId, flat) VALUES (%d, %d, N'%s')" % (data[0], data[1], data[2])
-        print('isert')
-        print(query)
         cur.execute(query)
         cur.commit()
     query = "DELETE FROM requests WHERE id=%d" % data[3]
-    print('delete')
-    print(query)
     cur.execute(query)
     cur.commit()
     return redirect('/')
