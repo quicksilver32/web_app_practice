@@ -17,6 +17,13 @@ fetch('/adder_json', {method: 'POST'}).then(res => res.json()).then(function (da
     document.getElementById('hidden_address').value = data[0]['address']
     document.getElementById('room').value = 1;
     document.getElementById('hidden_room').value = 1;
+    for (let i=1; i<=data[0]['room_count']; i++){
+       var li_jsn2 = document.createElement('li')
+       li_jsn2.setAttribute('id', i + 'room')
+       li_jsn2.appendChild(document.createTextNode(i))
+       ul_jsn2.appendChild(li_jsn2)
+       ar_id.push(li_jsn2.id)
+    };
 
     for(key in data) {
         var l = ''
