@@ -115,6 +115,28 @@ def adder():
         address = request.form['hidden_address']
         room = request.form['hidden_room']
         userId = session['id']
+        if session ['isCompany']:
+            query = "SELECT * FROM requests WHERE userID = N'%s' AND BuildingId = (SELECT id FROM buildings " \
+                    "WHERE address = N'%s')" % (userId, address)
+        else:
+            query = "SELECT * FROM requests WHERE userID = N'%s' AND BuildingId = (SELECT id FROM buildings " \
+                    "WHERE address = N'%s') AND flat = N'%s'" \
+                    % (userId, address, room)
+        cur.execute(query)
+        row = cur.fetchone()
+        if row:
+            return redirect('/adder')
+        if session ['isCompany']:
+            query = "SELECT * FROM objects WHERE userID = N'%s' AND BuildingId = (SELECT id FROM buildings " \
+                    "WHERE address = N'%s')" % (userId, address)
+        else:
+            query = "SELECT * FROM objects WHERE userID = N'%s' AND BuildingId = (SELECT id FROM buildings " \
+                    "WHERE address = N'%s') AND flat = N'%s'" \
+                    % (userId, address, room)
+        cur.execute(query)
+        row = cur.fetchone()
+        if row:
+            return redirect('/adder')
         if session['isCompany']:
             query = "INSERT INTO requests (userId, BuildingId)" \
                     "VALUES(N'%s', (SELECT id FROM buildings WHERE address = N'%s'))" % (userId, address)
@@ -145,11 +167,13 @@ def adder_json():
     buildings.update({count: session['isCompany']})
     return jsonify(buildings)
 
+
 @app.route('/admin', methods=['POST', 'GET'])
 def admin():
     if session.get('isAdmin') == None:
         return redirect('/')
     return render_template('admin.html')
+
 
 @app.route('/requests', methods=['POST', 'GET'])
 def requests():
