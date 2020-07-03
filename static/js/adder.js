@@ -4,10 +4,6 @@ fetch('/adder_json', {method: 'POST'}).then(res => res.json()).then(function (da
     var appartment = document.getElementById('Appartment')
     var countap = 10
     var home = document.getElementById('Home')
-    var jsn = new XMLHttpRequest();
-    var ref = '/main';
-    jsn.open('GET', ref, false);
-    jsn.send();
     var ar_id = []
 
 
@@ -56,8 +52,8 @@ fetch('/adder_json', {method: 'POST'}).then(res => res.json()).then(function (da
     document.getElementById('room').value = id_elem.textContent
     document.getElementById('hidden_room').value = id_elem.textContent
     });
-});
 
+});
 var ul = $('.dropdown-search-box');
 var input = ul.find('input');
 var li = ul.find('li.result');
@@ -70,5 +66,7 @@ input.keyup(function(){
   } else {
     li.show();
   }
-  console.log(li)
+  console.log(val)
 });
+
+

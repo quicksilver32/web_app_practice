@@ -24,10 +24,12 @@
             </div>
         </header>
         <aside v-show="show" transition="slide">
+            <div class="container">
         	<button onclick="location.href='/main'" type="button" class="btn btn-primary btn-lg btn-block">Главная</button>
         	<button onclick="location.href='/dashboard'" type="button" class="btn btn-primary btn-lg btn-block">Дашборд</button>
             <button onclick="location.href='/adder'" type="button" class="btn btn-primary btn-lg btn-block">Добавить объект</button>
             <button onclick="location.href='/logout'" type="button" class="btn btn-primary btn-lg btn-block">Выход</button>
+            </div>
         </aside>
 
         <div class="card-deck">
