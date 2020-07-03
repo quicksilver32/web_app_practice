@@ -16,7 +16,10 @@ session = {}
 @app.route('/', methods=['POST', 'GET'])
 def check():
     if session:
-        return redirect("/main")
+        if session.get('isAdmin') == None:
+            return redirect('/main')
+        else:
+            return redirect("/requests")
     if request.method == "POST":
         username = request.form['log']
         password = request.form['pass']
@@ -25,7 +28,7 @@ def check():
         row = cur.fetchone()
         if row:
             session['isAdmin'] = True
-            return redirect('/admin')
+            return redirect('/requests')
         query = "SELECT isCompany, id FROM users WHERE login = N'%s' AND password = N'%s'" % (username, password)
         cur.execute(query)
         row = cur.fetchone()
@@ -168,11 +171,11 @@ def adder_json():
     return jsonify(buildings)
 
 
-@app.route('/admin', methods=['POST', 'GET'])
-def admin():
-    if session.get('isAdmin') == None:
-        return redirect('/')
-    return render_template('admin.html')
+# @app.route('/admin', methods=['POST', 'GET'])
+# def admin():
+#     if session.get('isAdmin') == None:
+#         return redirect('/')
+#     return render_template('admin.html')
 
 
 @app.route('/requests', methods=['POST', 'GET'])
@@ -197,6 +200,7 @@ def json_request():
         requests[count].update({'buildingId': row.buildingId})
         requests[count].update({'room': row.flat})
         requests[count].update({'userName': row.login})
+        requests[count].update({'address': row.address})
         count += 1
     return jsonify(requests)
 

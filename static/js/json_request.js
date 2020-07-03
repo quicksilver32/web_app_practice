@@ -38,7 +38,12 @@ fetch('/json_request', {method: 'POST'}).then(res => res.json()).then(function (
           div2.setAttribute('class','card h-100 w-300')
           div.setAttribute('class','card-body')
           body.appendChild(col)
-          p.appendChild(document.createTextNode(data[key]['room']));
+          if (data[key]['room']){
+              var room = ' кв. ' + data[key]['room']
+          };
+          console.log(room)
+          p.appendChild(document.createTextNode(data[key]['address'] + room));
+          room = ''
           h5.appendChild(document.createTextNode(data[key]['userName']));
           div.appendChild(h5)
           div.appendChild(p)
