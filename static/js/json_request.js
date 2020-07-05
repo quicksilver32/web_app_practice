@@ -3,7 +3,6 @@ function refresh() {
     location.reload()
 }
 fetch('/json_request', {method: 'POST'}).then(res => res.json()).then(function (data) { //фуункция получения json
-    console.log(data)
     var body = document.getElementById('row-card');
 
     for(key in data) {
