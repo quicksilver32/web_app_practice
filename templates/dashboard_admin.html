@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="../static/css/card.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<!--    <link rel="stylesheet" href="../static/css/card2.css">-->
+
+</head>
+<body id="body">
+
+    <div id="app">
+        <header>
+        	<div>
+               <button @click="show = !show">
+                   <i class="ion-navicon"></i>
+               </button>
+               ALAN-Energy
+           </div>
+       </header>
+       <aside v-show="show" transition="slide">
+           <button onclick="location.href='/requests'" type="button" class="btn btn-primary btn-lg btn-block">Заявки</button>
+           <button onclick="location.href='/dashboard_admin'" type="button" class="btn btn-primary btn-lg btn-block">Дашборд</button>
+           <button onclick="location.href='/logout'" type="button" class="btn btn-primary btn-lg btn-block">Выход</button>
+       </aside>
+
+       <div class="card-deck">
+
+        <div class="row" style="margin-left: 30px; margin-right: 30px; margin-top:100px" id="row-card">
+
+        </div>
+
+    </div>
+    <div class="container panel_filter">
+        <div class="row mt-3 ">
+    			<div class="col-4">
+					<div class="form-check mb-2 ">
+				        <input class="form-check-input" type="checkbox" id="gridCheck1">
+				        <label class="form-check-label" for="gridCheck1">
+				          По городам
+				        </label>
+				    </div>
+						<div class="form-group panel_filter p-2  ">
+							<label class="form-check-label" for="gridCheck1">
+				          Область	
+				        </label>
+					    <select class="form-control" id="exampleFormControlSelect1">
+					      <option>1</option>
+					      <option>2</option>
+					      <option>3</option>
+					      <option>4</option>
+					      <option>5</option>
+					    </select>
+					  </div>	
+				</div>
+				<div class="col-4">
+					<div class="form-check mb-2">
+				        <input class="form-check-input" type="checkbox" id="gridCheck1">
+				        <label class="form-check-label" for="gridCheck1">
+				          По домам
+				        </label>
+				    </div>
+						<div class="form-group panel_filter p-2">
+							<label class="form-check-label" for="gridCheck1">
+				          Город	
+				        </label>
+					    <select class="form-control" id="exampleFormControlSelect1">
+					      <option>1</option>
+					      <option>2</option>
+					      <option>3</option>
+					      <option>4</option>
+					      <option>5</option>
+					    </select>
+					  </div>	
+				</div>
+				<div class="col-4">
+					<div class="form-check mb-2">
+				        <input class="form-check-input" type="checkbox" id="gridCheck1">
+				        <label class="form-check-label" for="gridCheck1">
+				          По дому
+				        </label>
+				    </div>
+						<div class="form-group panel_filter p-2">
+							<label class="form-check-label" for="gridCheck1">
+				          Адрес	
+				        </label>
+					    <select class="form-control" id="exampleFormControlSelect1">
+					      <option>1</option>
+					      <option>2</option>
+					      <option>3</option>
+					      <option>4</option>
+					      <option>5</option>
+					    </select>
+					  </div>	
+				</div>
+				<div class="col-12">
+					<div class="form-check mb-2">
+				        <input class="form-check-input" type="checkbox" id="gridCheck1">
+				        <label class="form-check-label" for="gridCheck1">
+				          По квартире
+				        </label>
+				    </div>
+						<div class="form-group panel_filter p-2">
+							<label class="form-check-label" for="gridCheck1">
+				          Адрес	
+				        </label>
+					    <select class="form-control" id="exampleFormControlSelect1">
+					      <option>1</option>
+					      <option>2</option>
+					      <option>3</option>
+					      <option>4</option>
+					      <option>5</option>
+					    </select>
+					    <label class="form-check-label" for="gridCheck1">
+				          Квартира	
+				        </label>
+					    <select class="form-control" id="exampleFormControlSelect1">
+					      <option>1</option>
+					      <option>2</option>
+					      <option>3</option>
+					      <option>4</option>
+					      <option>5</option>
+					    </select>
+					  </div>	
+				</div>
+			</div>
+			<div class="col-12 panel_filter mb-3">
+				<div class="container">
+					<div class="row">
+						 <div class="col-6">
+              	<div class="container">
+              		<div class="row">
+              			<div class="col-2 pt-5">C</div>
+              			<div class="col-10">
+              				<div class="form-group"> 
+              					<label for="inputDate">Период</label>
+                  				<input type="date" class="form-control card_height">
+              				</div>
+              			</div>
+              		</div>
+              	</div>
+              </div>
+              <div class="col-6">
+              	<div class="container">
+              		<div class="row">
+              			<div class="col-2 pt-5">По</div>
+              			<div class="col-10">
+              				<div class="form-group"> 
+              					<label for="inputDate">Период</label>
+                  				<input type="date" class="form-control card_height">
+              				</div>
+              			</div>
+              		</div>
+              	</div>
+              </div>
+					</div>
+				</div>
+			</div>
+
+				
+           <!--
+           <div class="form-group row col-3 card_height">
+                <div class="col-11">
+                  <label for="inputDate">Период</label>
+                  <input type="date" class="form-control">
+              </div>
+                </div>
+              </form>
+              <div class="form-group col-3 card_height">
+                  <label for="inputDate">&#160;</label>
+                  <input type="date" class="form-control">
+                </div>
+
+
+                 <form class="col-6">
+              <div class="form-group ">
+                <label for="formControlRange">Площадь обьекта</label>
+                <input max="300" min="100" id="size1" onchange="$('#sizevalue1').text($('#size1').val());" type="range" class="form-control-range" id="formControlRange1">
+                <div id="sizevalue1">0</div>
+            </div>
+                  </form>
+                  <form class="col-6">
+          <div class="form-group ">
+                <label for="formControlRange">Площадь обьекта</label>
+                <input max="300" min="100" id="size2" onchange="$('#sizevalue2').text($('#size2').val());" type="range" class="form-control-range" id="formControlRange2">
+                <div id="sizevalue2">0</div>
+            </div>
+              </form> -->   <!-- тут ползунки с площадью,я их долго делал поэтому оставлю тут,вдруг понадобятся.-->
+</div>  <!-- внутренний роу -->
+</div> <!-- внутренний контейнер -->
+</div>  <!-- кончается класс панел -->
+</div> <!-- внешний роу -->
+</div> <!-- внешний контейнер -->
+
+</div>
+
+<script src="http://cdnjs.cloudflare.com/ajax/libs/vue/1.0.26/vue.min.js"></script>
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            show: false
+        }
+    })
+</script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>

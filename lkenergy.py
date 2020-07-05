@@ -47,7 +47,7 @@ def auth():
 
 @app.route('/main', methods=['POST', 'GET'])
 def main():
-    if session == {}:
+    if session == {} or session.get('isAdmin'):
         return redirect('/')
     return render_template('main.html')
 
@@ -112,7 +112,7 @@ def logout():
 
 @app.route('/adder', methods=['POST', 'GET'])
 def adder():
-    if session == {}:
+    if session == {} or session.get('isAdmin'):
         return redirect('/')
     if request.method == "POST":
         address = request.form['hidden_address']
@@ -225,6 +225,19 @@ def req_change():
     cur.commit()
     return redirect('/')
 
+
+@app.route('/dashboard_admin', methods=['POST', 'GET'])
+def dashboard_admin():
+    if session.get('isAdmin') == None:
+        return redirect('/')
+    return render_template('dashboard_admin.html')
+
+
+@app.route('/dashboard', methods=['POST', 'GET'])
+def dashboard():
+    if session == {} or session.get('isAdmin'):
+        return redirect('/')
+    return render_template('dashboard.html')
 
 if __name__ == "__main__":
     app.run(debug=True, use_reloader=True)
