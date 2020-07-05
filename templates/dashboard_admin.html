@@ -38,7 +38,7 @@
         <div class="row mt-3 ">
     			<div class="col-4">
 					<div class="form-check mb-2 ">
-				        <input class="form-check-input" type="checkbox" id="gridCheck1">
+				        <input class="form-check-input" type="radio" checked id="gridCheck0" name="radio" value="0">
 				        <label class="form-check-label" for="gridCheck1">
 				          По городам
 				        </label>
@@ -47,7 +47,7 @@
 							<label class="form-check-label" for="gridCheck1">
 				          Область	
 				        </label>
-					    <select class="form-control" id="exampleFormControlSelect1">
+					    <select class="form-control" id="exampleFormControlSelect0">
 					      <option>1</option>
 					      <option>2</option>
 					      <option>3</option>
@@ -58,7 +58,7 @@
 				</div>
 				<div class="col-4">
 					<div class="form-check mb-2">
-				        <input class="form-check-input" type="checkbox" id="gridCheck1">
+				        <input class="form-check-input" type="radio" id="gridCheck1" name="radio" value="1">
 				        <label class="form-check-label" for="gridCheck1">
 				          По домам
 				        </label>
@@ -67,7 +67,7 @@
 							<label class="form-check-label" for="gridCheck1">
 				          Город	
 				        </label>
-					    <select class="form-control" id="exampleFormControlSelect1">
+					    <select class="form-control" disabled id="exampleFormControlSelect1">
 					      <option>1</option>
 					      <option>2</option>
 					      <option>3</option>
@@ -78,7 +78,7 @@
 				</div>
 				<div class="col-4">
 					<div class="form-check mb-2">
-				        <input class="form-check-input" type="checkbox" id="gridCheck1">
+				        <input class="form-check-input" type="radio" id="gridCheck2" name="radio" value="2">
 				        <label class="form-check-label" for="gridCheck1">
 				          По дому
 				        </label>
@@ -87,7 +87,7 @@
 							<label class="form-check-label" for="gridCheck1">
 				          Адрес	
 				        </label>
-					    <select class="form-control" id="exampleFormControlSelect1">
+					    <select class="form-control" disabled id="exampleFormControlSelect2">
 					      <option>1</option>
 					      <option>2</option>
 					      <option>3</option>
@@ -98,7 +98,7 @@
 				</div>
 				<div class="col-12">
 					<div class="form-check mb-2">
-				        <input class="form-check-input" type="checkbox" id="gridCheck1">
+				        <input class="form-check-input" type="radio" id="gridCheck3" name="radio" value="3">
 				        <label class="form-check-label" for="gridCheck1">
 				          По квартире
 				        </label>
@@ -107,7 +107,7 @@
 							<label class="form-check-label" for="gridCheck1">
 				          Адрес	
 				        </label>
-					    <select class="form-control" id="exampleFormControlSelect1">
+					    <select class="form-control" disabled id="exampleFormControlSelect3">
 					      <option>1</option>
 					      <option>2</option>
 					      <option>3</option>
@@ -117,7 +117,7 @@
 					    <label class="form-check-label" for="gridCheck1">
 				          Квартира	
 				        </label>
-					    <select class="form-control" id="exampleFormControlSelect1">
+					    <select class="form-control" disabled id="exampleFormControlSelect4">
 					      <option>1</option>
 					      <option>2</option>
 					      <option>3</option>
@@ -206,8 +206,41 @@
         }
     })
 </script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script>
+$('input[name="radio"]').click(function(){
+	var value = $('input[name="radio"]:checked').val();
+	if (value == 0){
+		$('#exampleFormControlSelect0').removeAttr('disabled');
+		$('#exampleFormControlSelect1').attr('disabled', '');
+		$('#exampleFormControlSelect2').attr('disabled', '');
+		$('#exampleFormControlSelect3').attr('disabled', '');
+		$('#exampleFormControlSelect4').attr('disabled', '');
+	}
+	if (value == 1){
+		$('#exampleFormControlSelect0').attr('disabled', '');
+		$('#exampleFormControlSelect1').removeAttr('disabled');
+		$('#exampleFormControlSelect2').attr('disabled', '');
+		$('#exampleFormControlSelect3').attr('disabled', '');
+		$('#exampleFormControlSelect4').attr('disabled', '');
+	}
+	if (value == 2){
+		$('#exampleFormControlSelect0').attr('disabled', '');
+		$('#exampleFormControlSelect1').attr('disabled', '');
+		$('#exampleFormControlSelect2').removeAttr('disabled');
+		$('#exampleFormControlSelect3').attr('disabled', '');
+		$('#exampleFormControlSelect4').attr('disabled', '');
+	}
+	if (value == 3){
+		$('#exampleFormControlSelect0').attr('disabled', '');
+		$('#exampleFormControlSelect1').attr('disabled', '');
+		$('#exampleFormControlSelect2').attr('disabled', '');
+		$('#exampleFormControlSelect3').removeAttr('disabled');
+		$('#exampleFormControlSelect4').removeAttr('disabled');
+	}
+});
+</script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
