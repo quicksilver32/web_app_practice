@@ -56,7 +56,7 @@ def main():
 def get_jsn():
     id = session['id']
     query = "SELECT b.address, o.flat FROM buildings AS b JOIN objects AS o ON b.id = o.buildingId WHERE b.id IN " \
-            "(SELECT buildingID FROM objects WHERE userId = %d)" % id
+            "(SELECT buildingID FROM objects WHERE userId = %d) AND o.userId = %d" % (id, id)
     cur.execute(query)
     rows = cur.fetchall()
     obj = {}
@@ -238,6 +238,69 @@ def dashboard():
     if session == {} or session.get('isAdmin'):
         return redirect('/')
     return render_template('dashboard.html')
+
+
+@app.route('/json_dashboard', methods=['POST', 'GET'])
+def json_dashboard():
+    userId = session['id']
+    data = {'userId': userId}
+    data.update({'objects': {}})
+    query = "SELECT b.address, o.buildingId, o.flat FROM objects AS o JOIN buildings AS b ON o.buildingId = b.id " \
+            "WHERE o.userId = %d ORDER BY b.address" % userId
+    cur.execute(query)
+    rows = cur.fetchall()
+    data.update({'objects': {}})
+    count = 0
+    for row in rows:
+        data['objects'].update({count: {}})
+        data['objects'][count].update({'buildingId': row.buildingId})
+        data['objects'][count].update({'address': row.address})
+        data['objects'][count].update({'flat': row.flat})
+        count += 1
+    return jsonify(data)
+
+
+@app.route('/admin_json_dashboard', methods=['POST', 'GET'])
+def admin_json_dashboard():
+    data = {}
+    data.update({'regions': {}})
+    query = "SELECT id, name FROM regions ORDER BY name"
+    cur.execute(query)
+    rows = cur.fetchall()
+    count = 0
+    for row in rows:
+        data['regions'].update({count: {}})
+        data['regions'][count].update({'id': row.id})
+        data['regions'][count].update({'name': row.name})
+        count += 1
+
+    data.update({'cities': {}})
+    query = "SELECT id, name FROM cities ORDER BY name"
+    cur.execute(query)
+    rows = cur.fetchall()
+    count = 0
+    for row in rows:
+        data['cities'].update({count: {}})
+        data['cities'][count].update({'id': row.id})
+        data['cities'][count].update({'name': row.name})
+        count += 1
+
+    data.update({'buildings': {}})
+    query = "SELECT DISTINCT b.id, b.address, b.room_count_live, b.region_id, b.city_id FROM buildings AS b " \
+            "JOIN objects AS o ON b.id = o.buildingId ORDER BY address"
+    cur.execute(query)
+    rows = cur.fetchall()
+    count = 0
+    for row in rows:
+        data['buildings'].update({count: {}})
+        data['buildings'][count].update({'id': row.id})
+        data['buildings'][count].update({'address': row.address})
+        data['buildings'][count].update({'room_count_live': row.room_count_live})
+        data['buildings'][count].update({'region_id': row.region_id})
+        data['buildings'][count].update({'city_id': row.city_id})
+        count += 1
+    return jsonify(data)
+
 
 if __name__ == "__main__":
     app.run(debug=True, use_reloader=True)

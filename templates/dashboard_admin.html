@@ -47,12 +47,7 @@
 							<label class="form-check-label" for="gridCheck1">
 				          Область	
 				        </label>
-					    <select class="form-control" id="exampleFormControlSelect0">
-					      <option>1</option>
-					      <option>2</option>
-					      <option>3</option>
-					      <option>4</option>
-					      <option>5</option>
+					    <select class="form-control" id="dropdown0">
 					    </select>
 					  </div>	
 				</div>
@@ -67,12 +62,7 @@
 							<label class="form-check-label" for="gridCheck1">
 				          Город	
 				        </label>
-					    <select class="form-control" disabled id="exampleFormControlSelect1">
-					      <option>1</option>
-					      <option>2</option>
-					      <option>3</option>
-					      <option>4</option>
-					      <option>5</option>
+					    <select class="form-control" disabled id="dropdown1">
 					    </select>
 					  </div>	
 				</div>
@@ -87,12 +77,7 @@
 							<label class="form-check-label" for="gridCheck1">
 				          Адрес	
 				        </label>
-					    <select class="form-control" disabled id="exampleFormControlSelect2">
-					      <option>1</option>
-					      <option>2</option>
-					      <option>3</option>
-					      <option>4</option>
-					      <option>5</option>
+					    <select class="form-control" disabled id="dropdown2">
 					    </select>
 					  </div>	
 				</div>
@@ -107,22 +92,12 @@
 							<label class="form-check-label" for="gridCheck1">
 				          Адрес	
 				        </label>
-					    <select class="form-control" disabled id="exampleFormControlSelect3">
-					      <option>1</option>
-					      <option>2</option>
-					      <option>3</option>
-					      <option>4</option>
-					      <option>5</option>
+					    <select class="form-control" disabled id="dropdown3">
 					    </select>
 					    <label class="form-check-label" for="gridCheck1">
 				          Квартира	
 				        </label>
-					    <select class="form-control" disabled id="exampleFormControlSelect4">
-					      <option>1</option>
-					      <option>2</option>
-					      <option>3</option>
-					      <option>4</option>
-					      <option>5</option>
+					    <select class="form-control" disabled id="dropdown4">
 					    </select>
 					  </div>	
 				</div>
@@ -211,37 +186,38 @@
 $('input[name="radio"]').click(function(){
 	var value = $('input[name="radio"]:checked').val();
 	if (value == 0){
-		$('#exampleFormControlSelect0').removeAttr('disabled');
-		$('#exampleFormControlSelect1').attr('disabled', '');
-		$('#exampleFormControlSelect2').attr('disabled', '');
-		$('#exampleFormControlSelect3').attr('disabled', '');
-		$('#exampleFormControlSelect4').attr('disabled', '');
+		$('#dropdown0').removeAttr('disabled');
+		$('#dropdown1').attr('disabled', '');
+		$('#dropdown2').attr('disabled', '');
+		$('#dropdown3').attr('disabled', '');
+		$('#dropdown4').attr('disabled', '');
 	}
 	if (value == 1){
-		$('#exampleFormControlSelect0').attr('disabled', '');
-		$('#exampleFormControlSelect1').removeAttr('disabled');
-		$('#exampleFormControlSelect2').attr('disabled', '');
-		$('#exampleFormControlSelect3').attr('disabled', '');
-		$('#exampleFormControlSelect4').attr('disabled', '');
+		$('#dropdown0').attr('disabled', '');
+		$('#dropdown1').removeAttr('disabled');
+		$('#dropdown2').attr('disabled', '');
+		$('#dropdown3').attr('disabled', '');
+		$('#dropdown4').attr('disabled', '');
 	}
 	if (value == 2){
-		$('#exampleFormControlSelect0').attr('disabled', '');
-		$('#exampleFormControlSelect1').attr('disabled', '');
-		$('#exampleFormControlSelect2').removeAttr('disabled');
-		$('#exampleFormControlSelect3').attr('disabled', '');
-		$('#exampleFormControlSelect4').attr('disabled', '');
+		$('#dropdown0').attr('disabled', '');
+		$('#dropdown1').attr('disabled', '');
+		$('#dropdown2').removeAttr('disabled');
+		$('#dropdown3').attr('disabled', '');
+		$('#dropdown4').attr('disabled', '');
 	}
 	if (value == 3){
-		$('#exampleFormControlSelect0').attr('disabled', '');
-		$('#exampleFormControlSelect1').attr('disabled', '');
-		$('#exampleFormControlSelect2').attr('disabled', '');
-		$('#exampleFormControlSelect3').removeAttr('disabled');
-		$('#exampleFormControlSelect4').removeAttr('disabled');
+		$('#dropdown0').attr('disabled', '');
+		$('#dropdown1').attr('disabled', '');
+		$('#dropdown2').attr('disabled', '');
+		$('#dropdown3').removeAttr('disabled');
+		$('#dropdown4').removeAttr('disabled');
 	}
 });
 </script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="../static/js/admin_json_dashboard.js"></script>
 </body>
 </html>

@@ -40,23 +40,8 @@
                      <div class="form-group col-3" >
                         <label for="exampleFormControlSelect1">Адрес</label>
                         <select  class="form-control"  id="address">
-                          <option>1</option>
-                          <option>2</option>
-                          <option>3</option>
-                          <option>4</option>
-                          <option>5</option>
                       </select>
                   </div>
-                  <div class="form-group col-3">
-                    <label  for="exampleFormControlSelect1">Номер квартиры</label>
-                    <select  class="form-control"  id="room">
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
-                      <option>5</option>
-                  </select>
-              </div>
               <div class="col-3">
               	<div class="container">
               		<div class="row">
@@ -112,10 +97,8 @@
 $('#checkbox').click(function(){
 	if ($(this).is(':checked')){
 		$('#address').attr('disabled', '');
-        $('#room').attr('disabled', '');
 	} else {
 		$('#address').removeAttr('disabled');
-		$('#room').removeAttr('disabled');
 	}
 });
 
@@ -126,6 +109,7 @@ $('#checkbox').click(function(){
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="../static/js/json_dashboard.js"></script>
 
 </body>
 </html>
