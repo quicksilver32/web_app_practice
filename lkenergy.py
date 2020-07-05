@@ -171,11 +171,11 @@ def adder_json():
     return jsonify(buildings)
 
 
-# @app.route('/admin', methods=['POST', 'GET'])
-# def admin():
-#     if session.get('isAdmin') == None:
-#         return redirect('/')
-#     return render_template('admin.html')
+@app.route('/admin', methods=['POST', 'GET'])
+def admin():
+    if session.get('isAdmin') == None:
+        return redirect('/')
+    return render_template('admin.html')
 
 
 @app.route('/requests', methods=['POST', 'GET'])
@@ -300,6 +300,35 @@ def admin_json_dashboard():
         data['buildings'][count].update({'city_id': row.city_id})
         count += 1
     return jsonify(data)
+
+
+@app.route('/admin_obj_json', methods=['POST', 'GET'])
+def admin_obj_json():
+    query = "SELECT o.id, o.userId, o.buildingId, o.flat, u.name, b.address FROM objects AS o JOIN buildings AS b " \
+            "ON o.buildingId = b.id JOIN users AS u ON o.userId = u.id ORDER BY u.name, b.address"
+    cur.execute(query)
+    rows = cur.fetchall()
+    obj = {}
+    count = 0
+    for row in rows:
+        obj.update({count: {}})
+        obj[count].update({'objectId': row.id})
+        obj[count].update({'userId': row.userId})
+        obj[count].update({'buildingId': row.buildingId})
+        obj[count].update({'room': row.flat})
+        obj[count].update({'userName': row.name})
+        obj[count].update({'address': row.address})
+        count += 1
+    return jsonify(obj)
+
+
+@app.route('/obj_change')
+def obj_change():
+    data = int(request.args.get('data'))
+    query = "DELETE FROM objects WHERE id=%d" % data
+    cur.execute(query)
+    cur.commit()
+    return redirect('/')
 
 
 if __name__ == "__main__":
