@@ -1,9 +1,8 @@
-function refresh() {
-    location.reload()
-}
+//function refresh() {
+//    location.reload()
+//}
 var count = 0;
 fetch('/admin_obj_json', {method: 'POST'}).then(res => res.json()).then(function (data) { //фуункция получения json
-    console.log(data)
     var body = document.getElementById('row-card');
 
     for(key in data) {
@@ -24,9 +23,9 @@ fetch('/admin_obj_json', {method: 'POST'}).then(res => res.json()).then(function
 
           but2.setAttribute('class', 'btn btn-outline-danger btn-lg btn-block')
           but2.setAttribute('value', btn_value)
-          but2.setAttribute('onclick', 'setTimeout(refresh, 100)')
+//          but2.setAttribute('onclick', 'setTimeout(refresh, 100)')
           but2.setAttribute('id', key+'decline')
-          div_cont2.setAttribute('style', 'padding-bottom: 20px')
+//          div_cont2.setAttribute('style', 'padding-bottom: 20px')
           div_cont2.appendChild(but2)
 
 
@@ -55,7 +54,6 @@ fetch('/admin_obj_json', {method: 'POST'}).then(res => res.json()).then(function
           if (count == 3){
             count = 0;
             body.appendChild(enter)
-            console.log(body)
           }
           else{
             count++
@@ -63,7 +61,12 @@ fetch('/admin_obj_json', {method: 'POST'}).then(res => res.json()).then(function
 };
 $('button').on('click', function(e){
     var id = e.target.id
-    var id_elem = document.getElementById(id)
-    fetch('/obj_change?data='+id_elem.value);
+    var elem = document.getElementById(id)
+    var elem1 = elem.parentNode
+    var elem2 = elem1.parentNode
+    var elem3 = elem2.parentNode
+    elem3.style.display = 'none'
+    fetch('/obj_change?data='+ elem.value);
+    elem3.style.display = 'none'
     });
 });

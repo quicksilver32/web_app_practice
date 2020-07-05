@@ -37,7 +37,7 @@ fetch('/admin_json_dashboard', {method: 'POST'}).then(res => res.json()).then(fu
     $("#dropdown3").change(function(){
         $('#dropdown4 option').remove()
         var id = $(this).children(":selected").prop('id');
-            var room = Number(data['buildings'][id]['room_count_live'])
+        var room = Number(data['buildings'][id]['room_count_live'])
         for (let i = 1; i <= room; i++) {
             var opt4 = document.createElement('option')
             opt4.innerHTML = i

@@ -1,7 +1,7 @@
 console.log("=== Get Start ===") // старт скрипта
-function refresh() {
-    location.reload()
-}
+// function refresh() {
+//     location.reload()
+// }
 var count = 0;
 fetch('/json_request', {method: 'POST'}).then(res => res.json()).then(function (data) { //фуункция получения json
     var body = document.getElementById('row-card');
@@ -33,11 +33,11 @@ fetch('/json_request', {method: 'POST'}).then(res => res.json()).then(function (
           but2.innerHTML = 'Отклонить';
           but1.setAttribute('class', 'btn btn-outline-success btn-lg btn-block')
           but1.setAttribute('value', btn_value+'_accept')
-          but1.setAttribute('onclick', 'setTimeout(refresh, 100)')
+          // but1.setAttribute('onclick', 'setTimeout(refresh, 100)')
           but1.setAttribute('id', key+'accept')
           but2.setAttribute('class', 'btn btn-outline-danger btn-lg btn-block')
           but2.setAttribute('value', btn_value+'_decline')
-          but2.setAttribute('onclick', 'setTimeout(refresh, 100)')
+          // but2.setAttribute('onclick', 'setTimeout(refresh, 100)')
           but2.setAttribute('id', key+'decline')
           div_cont1.setAttribute('style', 'padding-bottom: 20px')
           div_cont2.setAttribute('style', 'padding-bottom: 20px')
@@ -48,6 +48,7 @@ fetch('/json_request', {method: 'POST'}).then(res => res.json()).then(function (
           p.setAttribute('class','card-text')
           h5.setAttribute('class','card-title')
           col.setAttribute('class', 'col-sm-3')
+          col.setAttribute('id',key + '_col')
           col.setAttribute('style', 'padding-bottom: 20px; min-width: 300px')
           div2.setAttribute('class','card h-100')
           div.setAttribute('class','card-body')
@@ -71,7 +72,6 @@ fetch('/json_request', {method: 'POST'}).then(res => res.json()).then(function (
           if (count == 3){
             count = 0;
             body.appendChild(enter)
-            console.log(body)
           }
           else{
             count++
@@ -79,7 +79,12 @@ fetch('/json_request', {method: 'POST'}).then(res => res.json()).then(function (
 };
 $('button').on('click', function(e){
     var id = e.target.id
-    var id_elem = document.getElementById(id)
-    fetch('/req_change?data='+id_elem.value);
+    var elem = document.getElementById(id)
+    var elem1 = elem.parentNode
+    var elem2 = elem1.parentNode
+    var elem3 = elem2.parentNode
+    elem3.style.display = 'none'
+    fetch('/req_change?data='+ elem.value);
+    elem3.style.display = 'none'
     });
 });

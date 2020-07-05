@@ -243,7 +243,7 @@ def dashboard():
 @app.route('/json_dashboard', methods=['POST', 'GET'])
 def json_dashboard():
     userId = session['id']
-    data = {'userId': userId}
+    data = {'userId': userId, 'isCompany': session['isCompany']}
     data.update({'objects': {}})
     query = "SELECT b.address, o.buildingId, o.flat FROM objects AS o JOIN buildings AS b ON o.buildingId = b.id " \
             "WHERE o.userId = %d ORDER BY b.address" % userId
@@ -257,6 +257,22 @@ def json_dashboard():
         data['objects'][count].update({'address': row.address})
         data['objects'][count].update({'flat': row.flat})
         count += 1
+    # data.update({'data': {}})
+    # query = "SELECT SUM(md.Consumption) AS сonsumption, md.DT, b.address, b.room_count FROM meter_data AS md " \
+    #         "JOIN customers AS c ON md.CustomerId = c.id JOIN buildings as b ON md.BuildingId = b.id " \
+    #         "WHERE md.BuildingId in (SELECT DISTINCT buildingId FROM objects WHERE userId = 1) " \
+    #         "GROUP BY md.DT, b.address, b.room_count ORDER BY b.address, md.DT"
+    # cur.execute(query)
+    # rows = cur.fetchall()
+    # count = 0
+    # for row in rows:
+    #     data['data'].update({count: {}})
+    #     data['data'][count].update({'DT': row.DT})
+    #     data['data'][count].update({'address': row.address})
+    #     data['data'][count].update({'сonsumption': row.сonsumption})
+    #     data['data'][count].update({'room_count': row.room_count})
+    #     count += 1
+    # print(data['data'])
     return jsonify(data)
 
 
