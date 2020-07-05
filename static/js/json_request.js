@@ -2,7 +2,7 @@ console.log("=== Get Start ===") // старт скрипта
 // function refresh() {
 //     location.reload()
 // }
-var count = 0;
+//var count = 0;
 fetch('/json_request', {method: 'POST'}).then(res => res.json()).then(function (data) { //фуункция получения json
     var body = document.getElementById('row-card');
 
@@ -10,8 +10,8 @@ fetch('/json_request', {method: 'POST'}).then(res => res.json()).then(function (
 
           var div = document.createElement('div');
           var div2 = document.createElement('div');
-          var enter = document.createElement('div')
-          enter.setAttribute('class', 'w-100')
+//          var enter = document.createElement('div')
+//          enter.setAttribute('class', 'w-100')
           div2.setAttribute('id', key)
           var h5 = document.createElement('h5');
           var p = document.createElement('p');
@@ -69,13 +69,13 @@ fetch('/json_request', {method: 'POST'}).then(res => res.json()).then(function (
           div2.appendChild(div_cont2)
           col.appendChild(div2)
 
-          if (count == 3){
-            count = 0;
-            body.appendChild(enter)
-          }
-          else{
-            count++
-          }
+//          if (count == 3){
+//            count = 0;
+//            body.appendChild(enter)
+//          }
+//          else{
+//            count++
+//          }
 };
 $('button').on('click', function(e){
     var id = e.target.id
