@@ -22,6 +22,7 @@ fetch('/admin_obj_json', {method: 'POST'}).then(res => res.json()).then(function
           but2.innerHTML = 'Удалить';
 
           but2.setAttribute('class', 'btn btn-outline-danger btn-lg btn-block')
+          but2.setAttribute('style', 'margin-bottom: 10px')
           but2.setAttribute('value', btn_value)
 //          but2.setAttribute('onclick', 'setTimeout(refresh, 100)')
           but2.setAttribute('id', key+'decline')
