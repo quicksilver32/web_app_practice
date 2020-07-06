@@ -257,22 +257,38 @@ def json_dashboard():
         data['objects'][count].update({'address': row.address})
         data['objects'][count].update({'flat': row.flat})
         count += 1
-    # data.update({'data': {}})
-    # query = "SELECT SUM(md.Consumption) AS сonsumption, md.DT, b.address, b.room_count FROM meter_data AS md " \
+    data.update({'data': {}})
+
+    # ГИСТОРГРАММА ПО ПОТРЕБЛЕНИЮ ДОМОВ ЗА ОПР ПЕРИОД
+    # query = "SELECT SUM(md.Consumption) AS сonsumption, b.address, b.room_count FROM meter_data AS md " \
     #         "JOIN customers AS c ON md.CustomerId = c.id JOIN buildings as b ON md.BuildingId = b.id " \
-    #         "WHERE md.BuildingId in (SELECT DISTINCT buildingId FROM objects WHERE userId = 1) " \
-    #         "GROUP BY md.DT, b.address, b.room_count ORDER BY b.address, md.DT"
+    #         "WHERE md.BuildingId in (SELECT DISTINCT buildingId FROM objects WHERE userId = %d )" \
+    #         " AND md.DT BETWEEN '2017-03-01 00:00:00' AND '2017-09-10 00:00:00' " \
+    #         "GROUP BY b.address, b.room_count ORDER BY b.address" % session['id']
     # cur.execute(query)
     # rows = cur.fetchall()
     # count = 0
     # for row in rows:
     #     data['data'].update({count: {}})
-    #     data['data'][count].update({'DT': row.DT})
     #     data['data'][count].update({'address': row.address})
     #     data['data'][count].update({'сonsumption': row.сonsumption})
     #     data['data'][count].update({'room_count': row.room_count})
     #     count += 1
-    # print(data['data'])
+
+    # ГРФИК ПО ПОТРЕБЛЕНИЮ 1 ДОМА ЗА ПЕРИОД ПО ДНЯМ
+    # query = "SELECT SUM(md.Consumption) AS сonsumption, md.DT, b.room_count FROM meter_data AS md  " \
+    #         "JOIN customers AS c ON md.CustomerId = c.id JOIN buildings as b ON md.BuildingId = b.id  " \
+    #         "WHERE md.BuildingId = 8 AND md.DT BETWEEN '2017-03-01 00:00:00' AND '2017-04-01 00:00:00' " \
+    #         "GROUP BY md.DT, b.room_count ORDER BY md.DT"
+    # cur.execute(query)
+    # rows = cur.fetchall()
+    # count = 0
+    # for row in rows:
+    #     data['data'].update({count: {}})
+    #     data['data'][count].update({'dt': row.DT})
+    #     data['data'][count].update({'сonsumption': row.сonsumption})
+    #     count += 1
+    print(data['data'])
     return jsonify(data)
 
 
