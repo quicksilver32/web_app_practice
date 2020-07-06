@@ -3,6 +3,35 @@ body{
     margin: 0;
     font-family: Helvetica, sans-serif;
     background-color: #f5f5f5;
+
+}
+.panel_filter {
+    border:1px solid black;
+   border-radius: 10px; /* Уголки */
+}
+.panel_filter2 {
+    border:1px solid black;
+    border-top:none;
+    border-bottom:none;
+}
+.panel_filter3 {
+    border:1px solid black;
+    border-left:none;
+    border-right:none;
+}
+.panel_filter4 {
+    border:1px solid black;
+ 
+}
+.panel_filter4 {
+    border:1px solid black;
+  border-left:none;
+   border-radius: 0 10px 10px 0; 
+}
+.panel_filter5 {
+    border:1px solid black;
+  border-right:none;
+  border-radius: 10px 0px 0px 10px; 
 }
 
 header{
@@ -61,5 +90,4 @@ button:active {
 .slide-enter, .slide-leave {
     left: -100%;
 }﻿
-
 

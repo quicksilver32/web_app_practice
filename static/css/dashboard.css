@@ -17,4 +17,20 @@ div.bar {
     font: 9px Verdana;
     text-anchor:middle;
 }
-.axis svg
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    background-color: #90A4AE;
+    padding: 1em 0.5em;
+    text-align: left;
+}
+
+td {
+    padding: 0.5em 0 0 0.5em;
+}
+tr:nth-of-type(2n) {
+    background-color: #ECEFF1;
+}
