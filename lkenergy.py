@@ -260,39 +260,7 @@ def json_dashboard():
         data['objects'][count].update({'address': row.address})
         data['objects'][count].update({'flat': row.flat})
         count += 1
-    data.update({'data': {}})
 
-    #ГИСТОРГРАММА ПО ПОТРЕБЛЕНИЮ ДОМОВ ЗА ОПР ПЕРИОД
-    # query = "SELECT SUM(md.Consumption) AS сonsumption, b.address, b.room_count FROM meter_data AS md " \
-    #         "JOIN customers AS c ON md.CustomerId = c.id JOIN buildings as b ON md.BuildingId = b.id " \
-    #         "WHERE md.BuildingId in (SELECT DISTINCT buildingId FROM objects WHERE userId = %d )" \
-    #         " AND md.DT BETWEEN '2017-03-01 00:00:00' AND '2017-09-10 00:00:00' " \
-    #         "GROUP BY b.address, b.room_count ORDER BY b.address" % session['id']
-    # cur.execute(query)
-    # rows = cur.fetchall()
-    # count = 0
-    # for row in rows:
-    #     data['data'].update({count: {}})
-    #     data['data'][count].update({'address': row.address})
-    #     data['data'][count].update({'сonsumption': row.сonsumption})
-    #     data['data'][count].update({'room_count': row.room_count})
-    #     count += 1
-
-    # ГРФИК + ТАБЛИЦА ПО ПОТРЕБЛЕНИЮ 1 ДОМА ЗА ПЕРИОД ПО ДНЯМ
-    # query = "SELECT SUM(md.Consumption) AS сonsumption, md.DT, b.room_count FROM meter_data AS md  " \
-    #         "JOIN customers AS c ON md.CustomerId = c.id JOIN buildings as b ON md.BuildingId = b.id  " \
-    #         "WHERE md.BuildingId = 8 AND md.DT BETWEEN '2017-03-01 00:00:00' AND '2017-04-01 00:00:00' " \
-    #         "GROUP BY md.DT, b.room_count ORDER BY md.DT"
-    # cur.execute(query)
-    # rows = cur.fetchall()
-    # count = 0
-    # for row in rows:
-    #     data['data'].update({count: {}})
-    #     data['data'][count].update({'dt': row.DT})
-    #     data['data'][count].update({'сonsumption': row.сonsumption})
-    #     data['data'][count].update({'room_count': row.room_count})
-    #     count += 1
-    # print(data['data'])
     return jsonify(data)
 
 
@@ -371,15 +339,51 @@ def obj_change():
 def json_ajax():
     data = request.args.get('data')
     data = data.split('_')
-    print(data)
-    dk = {'address': data[0], 'start': data[1], 'end': data[2]}
+    dk = {'address': data[0], 'start': data[1], 'end': data[2], 'checked': data[3]}
     session['json_ajax'] = dk
     return jsonify(dk)
 
 
 @app.route('/json_ajax_data', methods=['POST', 'GET'])
 def data_ajax():
-    return jsonify(session['json_ajax'])
+    data ={}
+    data.update({'type': session['json_ajax']['checked']})
+    data.update({'data': {}})
+    session['json_ajax']['start'] = session['json_ajax']['start'] + " 00:00:00"
+    session['json_ajax']['end'] = session['json_ajax']['end'] + " 00:00:00"
+    if session['json_ajax']['checked'] == '1':
+        # ГИСТОРГРАММА ПО ПОТРЕБЛЕНИЮ ДОМОВ ЗА ОПР ПЕРИОД
+        query = "SELECT SUM(md.Consumption) AS сonsumption, b.address, b.room_count FROM meter_data AS md " \
+                "JOIN customers AS c ON md.CustomerId = c.id JOIN buildings as b ON md.BuildingId = b.id " \
+                "WHERE md.BuildingId in (SELECT DISTINCT buildingId FROM objects WHERE userId = %d )" \
+                " AND md.DT BETWEEN '%s' AND '%s' " \
+                "GROUP BY b.address, b.room_count ORDER BY b.address" % (session['id'], session['json_ajax']['start'], session['json_ajax']['end'])
+        print(query)
+        cur.execute(query)
+        rows = cur.fetchall()
+        count = 0
+        for row in rows:
+            data['data'].update({count: {}})
+            data['data'][count].update({'address': row.address})
+            data['data'][count].update({'сonsumption': row.сonsumption})
+            data['data'][count].update({'room_count': row.room_count})
+            count += 1
+    else:
+        # ГРФИК + ТАБЛИЦА ПО ПОТРЕБЛЕНИЮ 1 ДОМА ЗА ПЕРИОД ПО ДНЯМ
+        query = "SELECT SUM(md.Consumption) AS сonsumption, md.DT, b.room_count FROM meter_data AS md  " \
+                "JOIN customers AS c ON md.CustomerId = c.id JOIN buildings as b ON md.BuildingId = b.id  " \
+                "WHERE b.address = N'%s' AND md.DT BETWEEN '%s' AND '%s' " \
+                "GROUP BY md.DT, b.room_count ORDER BY md.DT" % (session['json_ajax']['address'], session['json_ajax']['start'], session['json_ajax']['end'])
+        cur.execute(query)
+        rows = cur.fetchall()
+        count = 0
+        for row in rows:
+            data['data'].update({count: {}})
+            data['data'][count].update({'dt': row.DT})
+            data['data'][count].update({'сonsumption': row.сonsumption})
+            data['data'][count].update({'room_count': row.room_count})
+            count += 1
+    return jsonify(data)
 
 
 if __name__ == "__main__":
