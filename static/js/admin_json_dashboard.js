@@ -1,4 +1,5 @@
 fetch('/admin_json_dashboard', {method: 'POST'}).then(res => res.json()).then(function (data) {  //фуункция получения json
+//    console.log(data)
     var sel0 = document.getElementById('dropdown0')
     var sel1 = document.getElementById('dropdown1')
     var sel2 = document.getElementById('dropdown2')
@@ -28,19 +29,26 @@ fetch('/admin_json_dashboard', {method: 'POST'}).then(res => res.json()).then(fu
         sel3.appendChild(opt3)
     }
 
-    for (let i = 1; i <= Number(data['buildings'][0]['room_count_live']); i++) {
+//    for (let i = 1; i <= Number(data['buildings'][0]['room_count_live']); i++) {
+//        var opt4 = document.createElement('option')
+//        opt4.innerHTML = i
+//        sel4.appendChild(opt4)
+//    }
+    for (let i = 0; i < data['rooms'][data['buildings'][0]['address']].length; i++) {
         var opt4 = document.createElement('option')
-        opt4.innerHTML = i
+        opt4.innerHTML = data['rooms'][data['buildings'][0]['address']][i]
         sel4.appendChild(opt4)
     }
 
     $("#dropdown3").change(function(){
         $('#dropdown4 option').remove()
-        var id = $(this).children(":selected").prop('id');
-        var room = Number(data['buildings'][id]['room_count_live'])
-        for (let i = 1; i <= room; i++) {
+//        var id = $(this).children(":selected").prop('id');
+//        var room = Number(data['buildings'][id]['room_count_live'])
+//        for (let i = 1; i <= room; i++) {
+        var address = $(this).children(":selected").val();
+        for (let i = 0; i < data['rooms'][address].length; i++) {
             var opt4 = document.createElement('option')
-            opt4.innerHTML = i
+            opt4.innerHTML = data['rooms'][address][i]
             sel4.appendChild(opt4)
         }
     });

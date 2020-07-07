@@ -192,7 +192,6 @@ def requests():
 def json_request():
     query = "SELECT r.id, r.userId, r.buildingId, r.flat, u.name, b.address FROM requests AS r JOIN buildings AS b " \
             "ON r.BuildingId = b.id JOIN users AS u ON r.userId = u.id"
-    print(query)
     cur.execute(query)
     rows = cur.fetchall()
     requests = {}
@@ -303,6 +302,25 @@ def admin_json_dashboard():
         data['buildings'][count].update({'region_id': row.region_id})
         data['buildings'][count].update({'city_id': row.city_id})
         count += 1
+    query = "SELECT b.address, c.flat  FROM customers AS c JOIN buildings AS b ON c.buildingId = b.id " \
+            "WHERE c.buildingid in (SELECT DISTINCT buildingid FROM objects) " \
+            "AND c.PeopleCount != '-1' AND c.flat != '-1' " \
+            "ORDER BY b.address, c.flat"
+    data.update({'rooms': {}})
+    cur.execute(query)
+    rows = cur.fetchall()
+    rooms = set()
+    for row in rows:
+        rooms.add(row[0])
+    rooms = dict.fromkeys(rooms, [])
+    for row in rows:
+        lst = list(rooms[row.address])
+        lst.append(int(row.flat))
+        rooms[row.address] = lst
+    for room in rooms:
+        rooms[room] = list(set(rooms[room]))
+        rooms[room].sort()
+    data['rooms'] = rooms
     return jsonify(data)
 
 
@@ -353,11 +371,11 @@ def data_ajax():
     session['json_ajax']['end'] = session['json_ajax']['end'] + " 00:00:00"
     if session['json_ajax']['checked'] == '1':
         # ГИСТОРГРАММА ПО ПОТРЕБЛЕНИЮ ДОМОВ ЗА ОПР ПЕРИОД
-        query = "SELECT SUM(md.Consumption) AS сonsumption, b.address, b.room_count FROM meter_data AS md " \
+        query = "SELECT SUM(md.Consumption) AS сonsumption, b.address, b.room_count_live FROM meter_data AS md " \
                 "JOIN customers AS c ON md.CustomerId = c.id JOIN buildings as b ON md.BuildingId = b.id " \
                 "WHERE md.BuildingId in (SELECT DISTINCT buildingId FROM objects WHERE userId = %d )" \
                 " AND md.DT BETWEEN '%s' AND '%s' " \
-                "GROUP BY b.address, b.room_count ORDER BY b.address" % (session['id'], session['json_ajax']['start'], session['json_ajax']['end'])
+                "GROUP BY b.address, b.room_count_live ORDER BY b.address" % (session['id'], session['json_ajax']['start'], session['json_ajax']['end'])
         print(query)
         cur.execute(query)
         rows = cur.fetchall()
@@ -366,14 +384,14 @@ def data_ajax():
             data['data'].update({count: {}})
             data['data'][count].update({'address': row.address})
             data['data'][count].update({'сonsumption': row.сonsumption})
-            data['data'][count].update({'room_count': row.room_count})
+            data['data'][count].update({'room_count': row.room_count_live})
             count += 1
     else:
         # ГРФИК + ТАБЛИЦА ПО ПОТРЕБЛЕНИЮ 1 ДОМА ЗА ПЕРИОД ПО ДНЯМ
-        query = "SELECT SUM(md.Consumption) AS сonsumption, md.DT, b.room_count FROM meter_data AS md  " \
+        query = "SELECT SUM(md.Consumption) AS сonsumption, md.DT, b.room_count_live FROM meter_data AS md  " \
                 "JOIN customers AS c ON md.CustomerId = c.id JOIN buildings as b ON md.BuildingId = b.id  " \
                 "WHERE b.address = N'%s' AND md.DT BETWEEN '%s' AND '%s' " \
-                "GROUP BY md.DT, b.room_count ORDER BY md.DT" % (session['json_ajax']['address'], session['json_ajax']['start'], session['json_ajax']['end'])
+                "GROUP BY md.DT, b.room_count_live ORDER BY md.DT" % (session['json_ajax']['address'], session['json_ajax']['start'], session['json_ajax']['end'])
         cur.execute(query)
         rows = cur.fetchall()
         count = 0
@@ -381,7 +399,7 @@ def data_ajax():
             data['data'].update({count: {}})
             data['data'][count].update({'dt': row.DT})
             data['data'][count].update({'сonsumption': row.сonsumption})
-            data['data'][count].update({'room_count': row.room_count})
+            data['data'][count].update({'room_count': row.room_count_live})
             count += 1
     return jsonify(data)
 

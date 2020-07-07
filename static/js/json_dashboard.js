@@ -133,23 +133,57 @@ fetch('/json_ajax_data', {method: 'POST'}).then(res => res.json()).then(function
         $(".bar")
             .mouseenter(function(e) {
             var id = e.target.id;
-            console.log(id)
             $("#" + id + "text").attr("style", "opacity: 1; font-weight:bold; text-anchor:middle")
                  // навели курсор на объект (не учитываются переходы внутри элемента)
         })
             .mouseleave(function(e){
             var id = e.target.id;
-            console.log(id)
             $("#" + id + "text").attr("style", "opacity: 0")
                 // отвели курсор с объекта (не учитываются переходы внутри элемента)
         });
+
+        //Таблица по потреблению зданий
+        d3data = d3data.map(function(d) { return [d.address, d.room_count, d.сonsumption]; })
+        collumns = ['Address', 'Room Count', 'Consumption']
+
+        const rowTemplate = (d) => {
+          return `
+          <td>${d.Address}</td>
+          <td>${d.Room_Count}</td>
+          <td>${d.Consumption}</td>
+          `;
+        };
+
+        // select viz and append table
+        const table = d3.select(".d3").append("table");
+
+        // append headers
+        const header = table.append("thead")
+            .selectAll('th')
+            .data(collumns)
+            .enter()
+            .append('th')
+            .text(d => d);
+
+        // append rows with rowTemplate
+        const rows = table
+            .selectAll("tr")
+            .data(d3data)
+            .enter()
+            .append("tr")
+
+        rows.selectAll("td")
+            .data(function(d){return d;})
+            .enter()
+            .append("td")
+            .text(function(d){return d;});
     }
     else {
         // ГРФИК ПО ПОТРЕБЛЕНИЮ 1 ДОМА ЗА ПЕРИОД ПО ДНЯМ
         var d3data = []
         for (key in data['data']){
             data['data'][key]['dt'] = data['data'][key]['dt'].substring(0, data['data'][key]['dt'].length - 12)
-            d3data.push(data['data1'][key])
+            d3data.push(data['data'][key])
         }
         console.log(d3data)
 
@@ -254,24 +288,16 @@ fetch('/json_ajax_data', {method: 'POST'}).then(res => res.json()).then(function
         $(".dot")
             .mouseenter(function(e) {
             var id = e.target.id;
-            console.log(id)
             $("#" + id + "text").attr("style", "opacity: 1; font-weight:bold; text-anchor:middle")
                  // навели курсор на объект (не учитываются переходы внутри элемента)
         })
             .mouseleave(function(e){
             var id = e.target.id;
-            console.log(id)
             $("#" + id + "text").attr("style", "opacity: 0")
                 // отвели курсор с объекта (не учитываются переходы внутри элемента)
         });
 
     //ТАБЛИЦА ПО ПОТРЕБЛЕНИЮ 1 ДОМА ЗА ПЕРИОД
-        var d3data = []
-        for (key in data['data']){
-            d3data.push(data['data'][key])
-        }
-        console.log(d3data)
-        console.log(d3data.map(function(d) { return [d.dt, d.room_count, d.сonsumption]; }))
         d3data = d3data.map(function(d) { return [d.dt, d.room_count, d.сonsumption.toFixed(2)]; })
 
         collumns = ['Date', 'Room Count', 'Consumption']
@@ -283,8 +309,6 @@ fetch('/json_ajax_data', {method: 'POST'}).then(res => res.json()).then(function
           <td>${d.Room_Count}</td>
           `;
         };
-
-
 
         // select viz and append table
         const table = d3.select(".d3").append("table");
