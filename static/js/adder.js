@@ -75,5 +75,7 @@ input.keyup(function(){
   }
   console.log(val)
 });
-
+$('#submit').click(function() {
+    alert('Объект добавлен')
+});
 

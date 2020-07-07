@@ -107,6 +107,7 @@ def logout():
     session.pop('id', None)
     session.pop('isAdmin', None)
     session.pop('isCompany', None)
+    session.pop('json_ajax', None)
     return redirect('/')
 
 
@@ -117,6 +118,8 @@ def adder():
     if request.method == "POST":
         address = request.form['hidden_address']
         room = request.form['hidden_room']
+        if address == '':
+            return redirect('/adder')
         userId = session['id']
         if session ['isCompany']:
             query = "SELECT * FROM requests WHERE userID = N'%s' AND BuildingId = (SELECT id FROM buildings " \
@@ -259,7 +262,7 @@ def json_dashboard():
         count += 1
     data.update({'data': {}})
 
-    # ГИСТОРГРАММА ПО ПОТРЕБЛЕНИЮ ДОМОВ ЗА ОПР ПЕРИОД
+    #ГИСТОРГРАММА ПО ПОТРЕБЛЕНИЮ ДОМОВ ЗА ОПР ПЕРИОД
     # query = "SELECT SUM(md.Consumption) AS сonsumption, b.address, b.room_count FROM meter_data AS md " \
     #         "JOIN customers AS c ON md.CustomerId = c.id JOIN buildings as b ON md.BuildingId = b.id " \
     #         "WHERE md.BuildingId in (SELECT DISTINCT buildingId FROM objects WHERE userId = %d )" \
@@ -362,6 +365,21 @@ def obj_change():
     cur.execute(query)
     cur.commit()
     return redirect('/')
+
+
+@app.route('/json_ajax', methods=['POST', 'GET'])
+def json_ajax():
+    data = request.args.get('data')
+    data = data.split('_')
+    print(data)
+    dk = {'address': data[0], 'start': data[1], 'end': data[2]}
+    session['json_ajax'] = dk
+    return jsonify(dk)
+
+
+@app.route('/json_ajax_data', methods=['POST', 'GET'])
+def data_ajax():
+    return jsonify(session['json_ajax'])
 
 
 if __name__ == "__main__":

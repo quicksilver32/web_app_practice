@@ -34,14 +34,16 @@
     </div>
 
     <div class="container ">
+        <form action="/dashboard" onsubmit="return false;" >
         <div class="row ">
             <div class="panel_filter col-12">
                 <div class="container">
                     <div class="row">
                      <div class="form-group col-3" >
                         <label for="exampleFormControlSelect1">Адрес</label>
-                        <select  class="form-control"  id="address">
+                        <select  class="form-control"  id="address" name="address">
                       </select>
+                         <input id="hidden_address" type="hidden" name="hidden_address">
                   </div>
               <div class="col-3">
               	<div class="container">
@@ -50,7 +52,7 @@
               			<div class="col-10">
               				<div class="form-group"> 
               					<label for="inputDate">Период</label>
-                  				<input type="date" class="form-control card_height">
+                  				<input type="date" class="form-control card_height" id="start_period">
               				</div>
               			</div>
               		</div>
@@ -63,7 +65,7 @@
               			<div class="col-10">
               				<div class="form-group"> 
               					<label for="inputDate">Период</label>
-                  				<input type="date" class="form-control card_height">
+                  				<input type="date" class="form-control card_height" id="end_period">
               				</div>
               			</div>
               		</div>
@@ -78,8 +80,10 @@
 
 </div>  <!-- внутренний роу -->
 </div> <!-- внутренний контейнер -->
+                <button id="refresh">Сформировать</button>
 </div>  <!-- кончается класс панел -->
 </div> <!-- внешний роу -->
+        </form>
 </div> <!-- внешний контейнер -->
 <div class="d3" style="margin: 50px">
 

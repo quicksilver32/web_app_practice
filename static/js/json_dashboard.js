@@ -1,9 +1,10 @@
 fetch('/json_dashboard', {method: 'POST'}).then(res => res.json()).then(function (data) {  //фуункция получения json
-//    console.log(data)
+ //   console.log(data)
 
     for (key in data['objects']) {
         var sel = document.getElementById('address')
         var opt = document.createElement('option')
+        opt.setAttribute('name', 'opt_name')
         if (data['objects'][key]['flat'] == null) {
             var room = '';
         } else {
@@ -12,7 +13,7 @@ fetch('/json_dashboard', {method: 'POST'}).then(res => res.json()).then(function
         opt.innerHTML = data['objects'][key]['address'] + room;
         sel.appendChild(opt);
     }
-// ГИСТОРГРАММА ПО ПОТРЕБЛЕНИЮ ДОМОВ ЗА ОПР ПЕРИОД
+//// ГИСТОРГРАММА ПО ПОТРЕБЛЕНИЮ ДОМОВ ЗА ОПР ПЕРИОД
 //    var d3data = []
 //    for (key in data['data']){
 //        d3data.push(data['data'][key])
@@ -116,8 +117,8 @@ fetch('/json_dashboard', {method: 'POST'}).then(res => res.json()).then(function
 //        $("#" + id + "text").attr("style", "opacity: 0")
 //            // отвели курсор с объекта (не учитываются переходы внутри элемента)
 //    });
-
-// ГРФИК ПО ПОТРЕБЛЕНИЮ 1 ДОМА ЗА ПЕРИОД ПО ДНЯМ
+//
+//// ГРФИК ПО ПОТРЕБЛЕНИЮ 1 ДОМА ЗА ПЕРИОД ПО ДНЯМ
 //    var d3data = []
 //    for (key in data['data']){
 //        d3data.push(data['data'][key])
@@ -168,10 +169,10 @@ fetch('/json_dashboard', {method: 'POST'}).then(res => res.json()).then(function
 //         "translate(" + margin + "," + (height - margin) + ")")
 //        .call(xAxis)
 //            .selectAll("text")
-//////            .style("text-anchor", "middle")
-//////            .style("font-weight", "bolder")
-//////            .attr("font-size", "10px")
-//////            .attr("transform", "rotate(3)")
+////            .style("text-anchor", "middle")
+////            .style("font-weight", "bolder")
+////            .attr("font-size", "10px")
+////            .attr("transform", "rotate(3)")
 //            .attr("class", "text")
 //            .attr("style", "opacity: 0");
 //
@@ -235,8 +236,8 @@ fetch('/json_dashboard', {method: 'POST'}).then(res => res.json()).then(function
 //        $("#" + id + "text").attr("style", "opacity: 0")
 //            // отвели курсор с объекта (не учитываются переходы внутри элемента)
 //    });
-
-//ТАБЛИЦА ПО ПОТРЕБЛЕНИЮ 1 ДОМА ЗА ПЕРИОД
+//
+////ТАБЛИЦА ПО ПОТРЕБЛЕНИЮ 1 ДОМА ЗА ПЕРИОД
 //    var d3data = []
 //    for (key in data['data']){
 //        d3data.push(data['data'][key])
@@ -280,6 +281,14 @@ fetch('/json_dashboard', {method: 'POST'}).then(res => res.json()).then(function
 //        .enter()
 //        .append("td")
 //        .text(function(d)   {return d;});
-
-
 });
+$("#refresh").click(function(){
+var opt = document.getElementById('address').value
+var start = document.getElementById('start_period').value
+var end = document.getElementById('end_period').value
+fetch('/json_ajax?data='+ opt + "_" + start + "_" + end);
+fetch('/json_ajax_data', {method: 'POST'}).then(res => res.json()).then(function (data) {  //фуункция получения json
+    console.log(data)
+})
+});
+
