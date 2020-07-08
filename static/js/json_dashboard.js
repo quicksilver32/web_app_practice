@@ -332,5 +332,6 @@ fetch('/json_ajax_data', {method: 'POST'}).then(res => res.json()).then(function
     }
 })
 setTimeout(json_ajax_data, 1000)
+};
 });
 
