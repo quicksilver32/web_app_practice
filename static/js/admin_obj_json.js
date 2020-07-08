@@ -10,7 +10,8 @@ function card_search (){
         $('.col-sm-3').attr('style', style + '; display: none')
         $(".col-sm-3:contains('" + input + "')").attr('style', style)
     }
-    else {
+    else
+    {
         location.reload()
     }
 }
@@ -53,7 +54,8 @@ fetch('/admin_obj_json', {method: 'POST'}).then(res => res.json()).then(function
           body.appendChild(col)
           if (data[key]['room']){
               var room = ', кв. ' + data[key]['room']
-          } else {
+          }
+          else {
                 room = ''
           }
           p.appendChild(document.createTextNode(data[key]['address'] + room));
@@ -73,16 +75,16 @@ fetch('/admin_obj_json', {method: 'POST'}).then(res => res.json()).then(function
 //          else{
 //            count++
 //          }
-};
-$("button[name = 'decline']").on('click', function(e){
-    var id = e.target.id
-    var elem = document.getElementById(id)
-    var elem1 = elem.parentNode
-    var elem2 = elem1.parentNode
-    var elem3 = elem2.parentNode
-    //elem3.style.display = 'none'
-    elem3.remove()
-    fetch('/obj_change?data='+ elem.value);
-    elem3.style.display = 'none'
+    };
+    $("button[name = 'decline']").on('click', function(e){
+        var id = e.target.id
+        var elem = document.getElementById(id)
+        var elem1 = elem.parentNode
+        var elem2 = elem1.parentNode
+        var elem3 = elem2.parentNode
+        //elem3.style.display = 'none'
+        elem3.remove()
+        fetch('/obj_change?data='+ elem.value);
+        elem3.style.display = 'none'
     });
 });

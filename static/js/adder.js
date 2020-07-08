@@ -47,29 +47,29 @@ fetch('/adder_json', {method: 'POST'}).then(res => res.json()).then(function (da
     }
 
     $('#ul_json').on('click', function(e){
-    var id = e.target.id
-    var id_elem = document.getElementById(id)
-    document.getElementById('address').value = id_elem.textContent
-    document.getElementById('hidden_address').value = id_elem.textContent
+        var id = e.target.id
+        var id_elem = document.getElementById(id)
+        document.getElementById('address').value = id_elem.textContent
+        document.getElementById('hidden_address').value = id_elem.textContent
 
-    $("#ul_json2").empty();
-    document.getElementById('room').value = 1;
+        $("#ul_json2").empty();
+        document.getElementById('room').value = 1;
 
-    for (let i=1; i<=data[id]['room_count']; i++){
-       var li_jsn2 = document.createElement('li')
-       li_jsn2.setAttribute('id', i + 'room')
-       li_jsn2.appendChild(document.createTextNode(i))
-       ul_jsn2.appendChild(li_jsn2)
-       ar_id.push(li_jsn2.id)
-    };
+        for (let i=1; i<=data[id]['room_count']; i++){
+           var li_jsn2 = document.createElement('li')
+           li_jsn2.setAttribute('id', i + 'room')
+           li_jsn2.appendChild(document.createTextNode(i))
+           ul_jsn2.appendChild(li_jsn2)
+           ar_id.push(li_jsn2.id)
+        };
 
     });
 
     $('#ul_json2').on('click', function(e){
-    var id = e.target.id
-    var id_elem = document.getElementById(id)
-    document.getElementById('room').value = id_elem.textContent
-    document.getElementById('hidden_room').value = id_elem.textContent
+        var id = e.target.id
+        var id_elem = document.getElementById(id)
+        document.getElementById('room').value = id_elem.textContent
+        document.getElementById('hidden_room').value = id_elem.textContent
     });
 
 });
@@ -82,7 +82,8 @@ input.keyup(function(){
   if ( val.length > 0 ) {
     li.hide();
     li.filter(':contains("'+ val +'")').show();
-  } else {
+  }
+  else {
     li.show();
   }
   console.log(val)

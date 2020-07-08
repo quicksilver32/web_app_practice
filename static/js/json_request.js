@@ -22,7 +22,9 @@ fetch('/json_request', {method: 'POST'}).then(res => res.json()).then(function (
           div_cont2.setAttribute('class', 'container')
           if (data[key]['room'] == null){
               var btn_room = ''
-          } else {
+          }
+          else
+          {
             btn_room = data[key]['room']
           };
           var btn_value = data[key]['userId'] + '_' + data[key]['buildingId'] + "_" + btn_room + "_" + data[key]['requestId']
@@ -55,7 +57,9 @@ fetch('/json_request', {method: 'POST'}).then(res => res.json()).then(function (
           body.appendChild(col)
           if (data[key]['room']){
               var room = ', кв. ' + data[key]['room']
-          } else {
+          }
+          else
+          {
                 room = ''
           }
           p.appendChild(document.createTextNode(data[key]['address'] + room));

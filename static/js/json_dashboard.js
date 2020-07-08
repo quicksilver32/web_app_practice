@@ -24,8 +24,11 @@ img.setAttribute('style', "display: block;margin: 0 auto;")
 var div_img = document.getElementById('img')
 div_img.appendChild(img)
 if($("#checkbox").attr("checked") == 'checked') {
-        var checked = 1}
-        else {var checked = 0}
+    var checked = 1
+}
+else {
+    var checked = 0
+}
 var opt = document.getElementById('address').value
 var start = document.getElementById('start_period').value
 var end = document.getElementById('end_period').value
