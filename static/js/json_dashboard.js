@@ -335,4 +335,3 @@ function json_ajax_data(){
 }
 setTimeout(json_ajax_data, 1000)
 });
-

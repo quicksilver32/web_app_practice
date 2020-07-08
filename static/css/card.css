@@ -3,6 +3,7 @@ body{
     margin: 0;
     font-family: Helvetica, sans-serif;
     background-color: #f5f5f5;
+    overflow-x:hidden;
 
 }
 .panel_filter {

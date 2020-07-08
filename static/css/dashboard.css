@@ -34,3 +34,6 @@ td {
 tr:nth-of-type(2n) {
     background-color: #ECEFF1;
 }
+body {
+    overflow-x:hidden;
+}
