@@ -39,7 +39,6 @@ function json_ajax_data(){
             img2.setAttribute('style', "display: block;margin: 0 auto;")
             var div_img2 = document.getElementById('img')
             div_img2.appendChild(img2)
-            console.log(10)
             return false
         }
         if (data['type'] == '1') {
@@ -57,7 +56,7 @@ function json_ajax_data(){
             }
 
             var height = 300,
-                width = 1700,
+                width = 1500,
                 margin = 50
 
             var xAxisLength = width - 2 * margin;
@@ -146,18 +145,9 @@ function json_ajax_data(){
                 $("#" + id + "text").attr("style", "opacity: 0")
                     // отвели курсор с объекта (не учитываются переходы внутри элемента)
             });
-
             //Таблица по потреблению зданий
-            d3data = d3data.map(function(d) { return [d.address, d.room_count, d.сonsumption.toFixed(2)]; })
-            collumns = ['Address', 'Room Count', 'Consumption']
-
-            const rowTemplate = (d) => {
-              return `
-              <td>${d.Address}</td>
-              <td>${d.Room_Count}</td>
-              <td>${d.Consumption}</td>
-              `;
-            };
+            d3data = d3data.map(function(d) { return [d.address, d.room_count, d.сonsumption.toFixed(2), d.per_room]; })
+            collumns = ['Адрес', 'Кол-во квартир', 'Потребление', 'Потребление на квартиру']
 
             // select viz and append table
             const table = d3.select(".d3").append("table");
@@ -201,7 +191,7 @@ function json_ajax_data(){
             }
 
             var height = 300,
-                width = 1700,
+                width = 1500,
                 margin = 50
 
             var xAxisLength = width - 2 * margin;
@@ -303,9 +293,9 @@ function json_ajax_data(){
             });
 
         //ТАБЛИЦА ПО ПОТРЕБЛЕНИЮ 1 ДОМА ЗА ПЕРИОД
-            d3data = d3data.map(function(d) { return [d.dt, d.room_count, d.сonsumption.toFixed(2)]; })
+            d3data = d3data.map(function(d) { return [d.dt, d.room_count, d.сonsumption.toFixed(2), d.per_room]; })
 
-            collumns = ['Date', 'Room Count', 'Consumption']
+            collumns = ['Дата', 'Кол-во квартир', 'Потребление', 'Потребление на квартиру']
 
             // select viz and append table
             const table = d3.select(".d3").append("table");

@@ -102,7 +102,7 @@ function get_jsn() {
             }
 
             var height = 300,
-                width = 1700,
+                width = 1500,
                 margin = 50
 
             var xAxisLength = width - 2 * margin;
@@ -193,12 +193,12 @@ function get_jsn() {
             });
 
             //Таблица по потреблению зданий
-            d3data = d3data.map(function(d) { return [d.address, d.room_count, d.сonsumption.toFixed(2)]; })
+            d3data = d3data.map(function(d) { return [d.address, d.room_count, d.сonsumption.toFixed(2), d.per_room]; })
             if (data['type'] == '2'){
-                collumns = ['Room', 'People Count', 'Consumption']
+                collumns = ['Квратира', 'Кол-во людей', 'Потребление', 'Потребление на человека']
             }
             else{
-                collumns = ['Address', 'Room Count', 'Consumption']
+                collumns = ['Адрес', 'Кол-во квартир', 'Потребление', 'Потребление на квартиру']
             }
 
             // select viz and append table
@@ -243,7 +243,7 @@ function get_jsn() {
             }
 
             var height = 300,
-                width = 1700,
+                width = 1500,
                 margin = 50
 
             var xAxisLength = width - 2 * margin;
@@ -345,9 +345,9 @@ function get_jsn() {
             });
 
         //ТАБЛИЦА ПО ПОТРЕБЛЕНИЮ 1 ДОМА ЗА ПЕРИОД
-            d3data = d3data.map(function(d) { return [d.dt, d.people_count, d.сonsumption.toFixed(2)]; })
+            d3data = d3data.map(function(d) { return [d.dt, d.people_count, d.сonsumption.toFixed(2), d.per_room]; })
 
-            collumns = ['Date', 'People Count', 'Consumption']
+            collumns = ['Дата', 'Кол-во людей', 'Потребление', 'Потребление на человека']
 
             // select viz and append table
             const table = d3.select(".d3").append("table");

@@ -386,6 +386,11 @@ def data_ajax():
             data['data'][count].update({'address': row.address})
             data['data'][count].update({'сonsumption': row.сonsumption})
             data['data'][count].update({'room_count': row.room_count_live})
+            try:
+                per_room = round((float(row.сonsumption) / float(row.room_count_live)), 2)
+            except:
+                per_room = 'Не заполнено'
+            data['data'][count].update({'per_room': per_room})
             count += 1
     else:
         # ГРФИК + ТАБЛИЦА ПО ПОТРЕБЛЕНИЮ 1 ДОМА ЗА ПЕРИОД ПО ДНЯМ
@@ -403,6 +408,11 @@ def data_ajax():
             data['data'][count].update({'dt': row.DT})
             data['data'][count].update({'сonsumption': row.сonsumption})
             data['data'][count].update({'room_count': row.room_count_live})
+            try:
+                per_room = round((float(row.сonsumption) / float(row.room_count_live)), 2)
+            except:
+                per_room = 'Не заполнено'
+            data['data'][count].update({'per_room': per_room})
             count += 1
     return jsonify(data)
 
@@ -417,7 +427,6 @@ def json_admin_dashboard():
     else:
         admin_json = {"address": data[0], 'start': data[1], 'end': data[2], 'radio': data[3]}
         session['json_ajax'] = admin_json
-    print(session['json_ajax'])
     return jsonify(session['json_ajax'])
 
 
@@ -437,7 +446,6 @@ def get_json_admin_dashboard():
                 "GROUP BY b.address, b.room_count_live ORDER BY b.address" % (session['json_ajax']['address'],
                                                                               session['json_ajax']['start'],
                                                                               session['json_ajax']['end'])
-        print(query)
         cur.execute(query)
         rows = cur.fetchall()
         count = 0
@@ -446,6 +454,11 @@ def get_json_admin_dashboard():
             data['data'][count].update({'address': row.address})
             data['data'][count].update({'сonsumption': row.consumption})
             data['data'][count].update({'room_count': row.room_count_live})
+            try:
+                per_room = round((float(row.consumption) / float(row.room_count_live)), 2)
+            except:
+                per_room = 'Не заполнено'
+            data['data'][count].update({'per_room': per_room})
             count += 1
     if session['json_ajax']['radio'] == '1':
         query = "SELECT b.address, SUM(md.Consumption) AS consumption, b.room_count_live  " \
@@ -464,6 +477,11 @@ def get_json_admin_dashboard():
             data['data'][count].update({'address': row.address})
             data['data'][count].update({'сonsumption': row.consumption})
             data['data'][count].update({'room_count': row.room_count_live})
+            try:
+                per_room = round((float(row.consumption) / float(row.room_count_live)), 2)
+            except:
+                per_room = 'Не заполнено'
+            data['data'][count].update({'per_room': per_room})
             count += 1
     if session['json_ajax']['radio'] == '2':
         query = "SELECT c.flat , SUM(md.Consumption) AS consumption, c.PeopleCount  " \
@@ -483,6 +501,11 @@ def get_json_admin_dashboard():
             data['data'][count].update({'address': row.flat})
             data['data'][count].update({'сonsumption': row.consumption})
             data['data'][count].update({'room_count': row.PeopleCount})
+            try:
+                per_room = round((float(row.consumption) / float(row.PeopleCount)), 2)
+            except:
+                per_room = 'Не заполнено'
+            data['data'][count].update({'per_room': per_room})
             count += 1
     if session['json_ajax']['radio'] == '3':
         query = "SELECT SUM(md.Consumption) AS сonsumption, md.DT, c.flat, c.PeopleCount " \
@@ -504,6 +527,11 @@ def get_json_admin_dashboard():
             data['data'][count].update({'сonsumption': row.сonsumption})
             data['data'][count].update({'people_count': row.PeopleCount})
             data['data'][count].update({'dt': row.DT})
+            try:
+                per_room = round((float(row.сonsumption) / float(row.PeopleCount)), 2)
+            except:
+                per_room = 'Не заполнено'
+            data['data'][count].update({'per_room': per_room})
             count += 1
     return jsonify(data)
 
