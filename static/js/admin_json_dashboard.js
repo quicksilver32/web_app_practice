@@ -77,7 +77,15 @@ else {
 function get_jsn() {
     fetch('/get_json_admin_dashboard', {method: 'POST'}).then(res => res.json()).then(function (data) {
         img.remove()
-        console.log(data)
+        if (Object.keys(data['data']) == 0){
+            var img2 = document.createElement('img')
+            img2.setAttribute('src', 'https://sun9-40.userapi.com/c846419/v846419463/cc08a/6t6ZwJ_T30M.jpg')
+            img2.setAttribute('style', "display: block;margin: 0 auto;")
+            var div_img2 = document.getElementById('img')
+            div_img2.appendChild(img2)
+            return false
+        }
+//        console.log(data)
         if (data['type'] in ['0', '1', '2']){
 //            console.log(data['type'])
             // ГИСТОРГРАММА ПО ПОТРЕБЛЕНИЮ ДОМОВ ЗА ОПР ПЕРИОД
@@ -85,7 +93,7 @@ function get_jsn() {
             for (key in data['data']){
                 d3data.push(data['data'][key])
             }
-            console.log(d3data)
+//            console.log(d3data)
             var count_data = []
             var count = 0
             for (key in data['data']){
@@ -224,7 +232,7 @@ function get_jsn() {
                 data['data'][key]['dt'] = data['data'][key]['dt'].substring(0, data['data'][key]['dt'].length - 12)
                 d3data.push(data['data'][key])
             }
-            console.log(d3data)
+//            console.log(d3data)
 
 
             var count_data = []
