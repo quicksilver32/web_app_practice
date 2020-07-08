@@ -375,8 +375,9 @@ def data_ajax():
                 "JOIN customers AS c ON md.CustomerId = c.id JOIN buildings as b ON md.BuildingId = b.id " \
                 "WHERE md.BuildingId in (SELECT DISTINCT buildingId FROM objects WHERE userId = %d )" \
                 " AND md.DT BETWEEN '%s' AND '%s' " \
-                "GROUP BY b.address, b.room_count_live ORDER BY b.address" % (session['id'], session['json_ajax']['start'], session['json_ajax']['end'])
-        print(query)
+                "GROUP BY b.address, b.room_count_live ORDER BY b.address" % (session['id'],
+                                                                              session['json_ajax']['start'],
+                                                                              session['json_ajax']['end'])
         cur.execute(query)
         rows = cur.fetchall()
         count = 0
@@ -391,7 +392,9 @@ def data_ajax():
         query = "SELECT SUM(md.Consumption) AS сonsumption, md.DT, b.room_count_live FROM meter_data AS md  " \
                 "JOIN customers AS c ON md.CustomerId = c.id JOIN buildings as b ON md.BuildingId = b.id  " \
                 "WHERE b.address = N'%s' AND md.DT BETWEEN '%s' AND '%s' " \
-                "GROUP BY md.DT, b.room_count_live ORDER BY md.DT" % (session['json_ajax']['address'], session['json_ajax']['start'], session['json_ajax']['end'])
+                "GROUP BY md.DT, b.room_count_live ORDER BY md.DT" % (session['json_ajax']['address'],
+                                                                      session['json_ajax']['start'],
+                                                                      session['json_ajax']['end'])
         cur.execute(query)
         rows = cur.fetchall()
         count = 0
@@ -409,10 +412,10 @@ def json_admin_dashboard():
     data = request.args.get('data')
     data = data.split('_')
     if len(data) == 5:
-        admin_json = {"address": data[0], 'room': data[1], 'start_date': data[2], 'end_date': data[3], 'radio': data[4]}
+        admin_json = {"address": data[0], 'room': data[1], 'start': data[2], 'end': data[3], 'radio': data[4]}
         session['json_ajax'] = admin_json
     else:
-        admin_json = {"address": data[0], 'start_date': data[1], 'end_date': data[2], 'radio': data[3]}
+        admin_json = {"address": data[0], 'start': data[1], 'end': data[2], 'radio': data[3]}
         session['json_ajax'] = admin_json
     print(session['json_ajax'])
     return jsonify(session['json_ajax'])
@@ -420,9 +423,89 @@ def json_admin_dashboard():
 
 @app.route('/get_json_admin_dashboard', methods=['POST', 'GET'])
 def get_json_admin_dashboard():
-    print('зашло')
-    print(session['json_ajax'])
-    return jsonify(session['json_ajax'])
+    data = {}
+    session['json_ajax']['start'] = session['json_ajax']['start'] + " 00:00:00"
+    session['json_ajax']['end'] = session['json_ajax']['end'] + " 00:00:00"
+    data.update({'type': session['json_ajax']['radio']})
+    data.update({'data': {}})
+    if session['json_ajax']['radio'] == '0':
+        query = "SELECT b.address, SUM(md.Consumption) AS consumption, b.room_count_live  " \
+                "FROM meter_data AS md JOIN buildings AS b ON md.BuildingId=b.id " \
+                "JOIN regions AS r ON b.region_id= r.id " \
+                "WHERE r.name = N'%s' " \
+                "AND md.DT BETWEEN '%s' AND '%s' " \
+                "GROUP BY b.address, b.room_count_live ORDER BY b.address" % (session['json_ajax']['address'],
+                                                                              session['json_ajax']['start'],
+                                                                              session['json_ajax']['end'])
+        print(query)
+        cur.execute(query)
+        rows = cur.fetchall()
+        count = 0
+        for row in rows:
+            data['data'].update({count: {}})
+            data['data'][count].update({'address': row.address})
+            data['data'][count].update({'сonsumption': row.consumption})
+            data['data'][count].update({'room_count': row.room_count_live})
+            count += 1
+    if session['json_ajax']['radio'] == '1':
+        query = "SELECT b.address, SUM(md.Consumption) AS consumption, b.room_count_live  " \
+                "FROM meter_data AS md JOIN buildings AS b ON md.BuildingId=b.id " \
+                "JOIN cities AS c ON b.city_id= c.id " \
+                "WHERE c.name = N'%s' " \
+                "AND md.DT BETWEEN '%s' AND '%s' " \
+                "GROUP BY b.address, b.room_count_live ORDER BY b.address" % (session['json_ajax']['address'],
+                                                                              session['json_ajax']['start'],
+                                                                              session['json_ajax']['end'])
+        cur.execute(query)
+        rows = cur.fetchall()
+        count = 0
+        for row in rows:
+            data['data'].update({count: {}})
+            data['data'][count].update({'address': row.address})
+            data['data'][count].update({'сonsumption': row.consumption})
+            data['data'][count].update({'room_count': row.room_count_live})
+            count += 1
+    if session['json_ajax']['radio'] == '2':
+        query = "SELECT c.flat , SUM(md.Consumption) AS consumption, c.PeopleCount  " \
+                "FROM meter_data AS md JOIN buildings AS b ON md.BuildingId=b.id " \
+                "JOIN customers AS c ON md.CustomerId=c.id " \
+                "WHERE b.address = N'%s' " \
+                "AND md.DT BETWEEN '%s' AND '%s' " \
+                "AND c.PeopleCount != '-1' AND c.flat != '-1' " \
+                "GROUP BY c.flat, c.PeopleCount ORDER BY c.flat" % (session['json_ajax']['address'],
+                                                                    session['json_ajax']['start'],
+                                                                    session['json_ajax']['end'])
+        cur.execute(query)
+        rows = cur.fetchall()
+        count = 0
+        for row in rows:
+            data['data'].update({count: {}})
+            data['data'][count].update({'address': row.flat})
+            data['data'][count].update({'сonsumption': row.consumption})
+            data['data'][count].update({'room_count': row.PeopleCount})
+            count += 1
+    if session['json_ajax']['radio'] == '3':
+        query = "SELECT SUM(md.Consumption) AS сonsumption, md.DT, c.flat, c.PeopleCount " \
+                "FROM meter_data AS md  JOIN customers AS c ON md.CustomerId = c.id " \
+                "JOIN buildings as b ON md.BuildingId = b.id  " \
+                "WHERE b.address = N'%s' AND c.flat = N'%s' " \
+                "AND md.DT BETWEEN '%s' AND '%s' " \
+                "GROUP BY md.DT, c.flat, c.PeopleCount " \
+                "ORDER BY c.flat, md.DT" % (session['json_ajax']['address'],
+                                            session['json_ajax']['room'],
+                                            session['json_ajax']['start'],
+                                            session['json_ajax']['end'])
+        cur.execute(query)
+        rows = cur.fetchall()
+        count = 0
+        for row in rows:
+            data['data'].update({count: {}})
+            data['data'][count].update({'room': row.flat})
+            data['data'][count].update({'сonsumption': row.сonsumption})
+            data['data'][count].update({'people_count': row.PeopleCount})
+            data['data'][count].update({'dt': row.DT})
+            count += 1
+    return jsonify(data)
 
 
 if __name__ == "__main__":

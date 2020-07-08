@@ -143,7 +143,7 @@ fetch('/json_ajax_data', {method: 'POST'}).then(res => res.json()).then(function
         });
 
         //Таблица по потреблению зданий
-        d3data = d3data.map(function(d) { return [d.address, d.room_count, d.сonsumption]; })
+        d3data = d3data.map(function(d) { return [d.address, d.room_count, d.сonsumption.toFixed(2)]; })
         collumns = ['Address', 'Room Count', 'Consumption']
 
         const rowTemplate = (d) => {
@@ -301,14 +301,6 @@ fetch('/json_ajax_data', {method: 'POST'}).then(res => res.json()).then(function
         d3data = d3data.map(function(d) { return [d.dt, d.room_count, d.сonsumption.toFixed(2)]; })
 
         collumns = ['Date', 'Room Count', 'Consumption']
-
-        const rowTemplate = (d) => {
-          return `
-          <td>${d.Date}</td>
-          <td>${d.Consumption}</td>
-          <td>${d.Room_Count}</td>
-          `;
-        };
 
         // select viz and append table
         const table = d3.select(".d3").append("table");

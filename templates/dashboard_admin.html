@@ -7,7 +7,8 @@
     <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <link rel="stylesheet" href="../static/css/card.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<!--    <link rel="stylesheet" href="../static/css/card2.css">-->
+    <link rel="stylesheet" href="../static/css/dashboard.css">
+	<!--    <link rel="stylesheet" href="../static/css/card2.css">-->
 
 </head>
 <body id="body">
@@ -42,7 +43,7 @@
 					<div class="form-check mb-2 ">
 				        <input class="form-check-input" type="radio" checked id="gridCheck0" name="radio" value="0">
 				        <label class="form-check-label" for="gridCheck1">
-				          По городам
+				          По области
 				        </label>
 				    </div>
 						<div class="form-group panel_filter p-2  ">
@@ -57,7 +58,7 @@
 					<div class="form-check mb-2">
 				        <input class="form-check-input" type="radio" id="gridCheck1" name="radio" value="1">
 				        <label class="form-check-label" for="gridCheck1">
-				          По Населенным пунктам
+				          По населенному пункту
 				        </label>
 				    </div>
 						<div class="form-group panel_filter p-2">
@@ -136,7 +137,7 @@
 					</div>
 				</div>
 			</div>
-					<button id="get_json">Сформировать</button>
+					<button class="btn btn-primary" style="width:150px; margin-bottom: 5px" id="get_json">Сформировать</button>
 				
            <!--
            <div class="form-group row col-3 card_height">
@@ -172,7 +173,11 @@
 </div> <!-- внешний роу -->
 	</form>
 </div> <!-- внешний контейнер -->
+<div class="d3" style="margin: 50px">
+    <div id="img">
+    </div>
 
+</div>
 </div>
 
 <script src="http://cdnjs.cloudflare.com/ajax/libs/vue/1.0.26/vue.min.js"></script>
@@ -218,6 +223,7 @@ $('input[name="radio"]').click(function(){
 	}
 });
 </script>
+<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
