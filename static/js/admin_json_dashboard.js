@@ -53,3 +53,23 @@ fetch('/admin_json_dashboard', {method: 'POST'}).then(res => res.json()).then(fu
         }
     });
 });
+$("#get_json").click(function(){
+var radio = $('input[name="radio"]:checked').val()
+var start = $('#start_date').val()
+var end = $('#end_date').val()
+if (radio != 3) {
+    var cont = $("#dropdown"+ String(radio)).val()
+    fetch('/json_admin_dashboard?data='+ cont + "_" + start + "_" + end + "_" + radio);
+}
+else {
+    cont = $("#dropdown"+ String(radio)).val()
+    var cont_room = $("#dropdown"+ '4').val()
+    fetch('/json_admin_dashboard?data='+ cont + "_" + cont_room + "_" + start + "_" + end + "_" + radio);
+}
+function get_jsn() {
+    fetch('/get_json_admin_dashboard', {method: 'POST'}).then(res => res.json()).then(function (data) {
+        console.log(data)
+    })
+}
+setTimeout(get_jsn, 1000)
+});

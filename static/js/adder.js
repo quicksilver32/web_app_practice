@@ -1,3 +1,14 @@
+function search_address (){
+    var input = $('input').val()
+    if (input.length >= 1) { 
+        $('.class_address').attr('style','display: none')
+        $(".class_address:contains('" + input + "')").removeAttr('style')
+    }
+    else {
+        $(".class_address").removeAttr('style')
+    }
+}
+
 fetch('/adder_json', {method: 'POST'}).then(res => res.json()).then(function (data) {  //фуункция получения json
     var ul_jsn = document.getElementById('ul_json')
     var ul_jsn2 = document.getElementById('ul_json2')
@@ -29,6 +40,7 @@ fetch('/adder_json', {method: 'POST'}).then(res => res.json()).then(function (da
         var l = ''
         var li_jsn = document.createElement('li');
         li_jsn.setAttribute('id', key)
+        li_jsn.setAttribute('class', 'class_address')
         li_jsn.appendChild(document.createTextNode(data[key]['address']));
         ul_jsn.appendChild(li_jsn)
         ar_id.push(li_jsn.id)
@@ -75,7 +87,5 @@ input.keyup(function(){
   }
   console.log(val)
 });
-$('#submit').click(function() {
-    alert('Объект добавлен')
-});
+
 

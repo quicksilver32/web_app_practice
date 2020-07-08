@@ -404,5 +404,26 @@ def data_ajax():
     return jsonify(data)
 
 
+@app.route('/json_admin_dashboard', methods=['POST', 'GET'])
+def json_admin_dashboard():
+    data = request.args.get('data')
+    data = data.split('_')
+    if len(data) == 5:
+        admin_json = {"address": data[0], 'room': data[1], 'start_date': data[2], 'end_date': data[3], 'radio': data[4]}
+        session['json_ajax'] = admin_json
+    else:
+        admin_json = {"address": data[0], 'start_date': data[1], 'end_date': data[2], 'radio': data[3]}
+        session['json_ajax'] = admin_json
+    print(session['json_ajax'])
+    return jsonify(session['json_ajax'])
+
+
+@app.route('/get_json_admin_dashboard', methods=['POST', 'GET'])
+def get_json_admin_dashboard():
+    print('зашло')
+    print(session['json_ajax'])
+    return jsonify(session['json_ajax'])
+
+
 if __name__ == "__main__":
     app.run(debug=True, use_reloader=True)

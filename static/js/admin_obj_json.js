@@ -1,15 +1,28 @@
 //function refresh() {
 //    location.reload()
 //}
-var count = 0;
+//var count = 0;
+
+function card_search (){
+    var input = $('input').val()
+    style = $(".col-sm-3").attr('style')
+    if (input.length >= 1) { 
+        $('.col-sm-3').attr('style', style + '; display: none')
+        $(".col-sm-3:contains('" + input + "')").attr('style', style)
+    }
+    else {
+        location.reload()
+    }
+}
+
 fetch('/admin_obj_json', {method: 'POST'}).then(res => res.json()).then(function (data) { //фуункция получения json
     var body = document.getElementById('row-card');
 
     for(key in data) {
           var div = document.createElement('div');
           var div2 = document.createElement('div');
-          var enter = document.createElement('div')
-          enter.setAttribute('class', 'w-100')
+//          var enter = document.createElement('div')
+//          enter.setAttribute('class', 'w-100')
           div2.setAttribute('id', key)
           var h5 = document.createElement('h5');
           var p = document.createElement('p');
@@ -22,6 +35,7 @@ fetch('/admin_obj_json', {method: 'POST'}).then(res => res.json()).then(function
           but2.innerHTML = 'Удалить';
 
           but2.setAttribute('class', 'btn btn-outline-danger btn-lg btn-block')
+          but2.setAttribute('name', 'decline')
           but2.setAttribute('style', 'margin-bottom: 10px')
           but2.setAttribute('value', btn_value)
 //          but2.setAttribute('onclick', 'setTimeout(refresh, 100)')
@@ -52,21 +66,22 @@ fetch('/admin_obj_json', {method: 'POST'}).then(res => res.json()).then(function
           div2.appendChild(div_cont2)
           col.appendChild(div2)
 
-          if (count == 3){
-            count = 0;
-            body.appendChild(enter)
-          }
-          else{
-            count++
-          }
+//          if (count == 3){
+//            count = 0;
+//            body.appendChild(enter)
+//          }
+//          else{
+//            count++
+//          }
 };
-$('button').on('click', function(e){
+$("button[name = 'decline']").on('click', function(e){
     var id = e.target.id
     var elem = document.getElementById(id)
     var elem1 = elem.parentNode
     var elem2 = elem1.parentNode
     var elem3 = elem2.parentNode
-    elem3.style.display = 'none'
+    //elem3.style.display = 'none'
+    elem3.remove()
     fetch('/obj_change?data='+ elem.value);
     elem3.style.display = 'none'
     });

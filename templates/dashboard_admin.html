@@ -36,6 +36,7 @@
 
     </div>
     <div class="container panel_filter">
+		<form action="" onsubmit="return false;" >
         <div class="row mt-3 ">
     			<div class="col-4">
 					<div class="form-check mb-2 ">
@@ -56,7 +57,7 @@
 					<div class="form-check mb-2">
 				        <input class="form-check-input" type="radio" id="gridCheck1" name="radio" value="1">
 				        <label class="form-check-label" for="gridCheck1">
-				          По домам
+				          По Населенным пунктам
 				        </label>
 				    </div>
 						<div class="form-group panel_filter p-2">
@@ -113,7 +114,7 @@
               			<div class="col-10">
               				<div class="form-group"> 
               					<label for="inputDate">Период</label>
-                  				<input type="date" class="form-control card_height">
+                  				<input type="date" class="form-control card_height" id="start_date">
               				</div>
               			</div>
               		</div>
@@ -126,7 +127,7 @@
               			<div class="col-10">
               				<div class="form-group"> 
               					<label for="inputDate">Период</label>
-                  				<input type="date" class="form-control card_height">
+                  				<input type="date" class="form-control card_height" id="end_date">
               				</div>
               			</div>
               		</div>
@@ -135,7 +136,7 @@
 					</div>
 				</div>
 			</div>
-
+					<button id="get_json">Сформировать</button>
 				
            <!--
            <div class="form-group row col-3 card_height">
@@ -169,6 +170,7 @@
 </div> <!-- внутренний контейнер -->
 </div>  <!-- кончается класс панел -->
 </div> <!-- внешний роу -->
+	</form>
 </div> <!-- внешний контейнер -->
 
 </div>
