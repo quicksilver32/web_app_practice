@@ -33,6 +33,14 @@ fetch('/json_ajax?data='+ opt + "_" + start + "_" + end + "_" + checked);
 function json_ajax_data(){
 fetch('/json_ajax_data', {method: 'POST'}).then(res => res.json()).then(function (data) {  //фуункция получения json
     img.remove()
+    if (Object.keys(data['data']) == 0){
+        var img2 = document.createElement('img')
+        img2.setAttribute('src', 'https://sun9-40.userapi.com/c846419/v846419463/cc08a/6t6ZwJ_T30M.jpg')
+        img2.setAttribute('style', "display: block;margin: 0 auto;")
+        var div_img2 = document.getElementById('img')
+        div_img2.appendChild(img2)
+        return false
+    }
     if (data['type'] == '1') {
         // ГИСТОРГРАММА ПО ПОТРЕБЛЕНИЮ ДОМОВ ЗА ОПР ПЕРИОД
         var d3data = []
