@@ -36,7 +36,7 @@ def check():
             session['isCompany'] = row.isCompany
             session['id'] = row.id
             return redirect('/main')
-        return 'no'
+        return render_template('auth_no.html')
     else:
         return render_template('auth.html')
 
@@ -91,7 +91,7 @@ def reg():
         cur.execute(query)
         row = cur.fetchone()
         if row:
-            return "<h1>Login used</>"
+            return render_template('reg_no.html')
         else:
             query = "INSERT INTO users (name, address, email, phone, isCompany, login, password)" \
                 "VALUES(N'%s',N'%s',N'%s',N'%s',%s,N'%s',N'%s')" % (name, address, email, phone, isCompany, username, password)

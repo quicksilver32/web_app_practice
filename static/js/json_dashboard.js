@@ -1,5 +1,4 @@
 fetch('/json_dashboard', {method: 'POST'}).then(res => res.json()).then(function (data) {  //фуункция получения json
- //   console.log(data)
 
     for (key in data['objects']) {
         var sel = document.getElementById('address')
@@ -13,18 +12,15 @@ fetch('/json_dashboard', {method: 'POST'}).then(res => res.json()).then(function
         opt.innerHTML = data['objects'][key]['address'] + room;
         sel.appendChild(opt);
     }
-
-
 });
+
 $("#refresh").click(function(){
 var img = document.createElement('img')
 img.setAttribute('src', 'https://salandy.co.za/wp-content/themes/business-gravity/assets/images/placeholder/loader.gif')
 img.setAttribute('style', "display: block;margin: 0 auto;")
-try {
-    $('svg').remove()
-    $('table').remove()
-    $('img').remove()
-} finally {}
+$('svg').remove()
+$('table').remove()
+$('img').remove()
 var div_img = document.getElementById('img')
 div_img.appendChild(img)
 if($("#checkbox").attr("checked") == 'checked') {
@@ -327,7 +323,6 @@ fetch('/json_ajax_data', {method: 'POST'}).then(res => res.json()).then(function
             .text(function(d)   {return d;});
     }
 })
-}
 setTimeout(json_ajax_data, 1000)
 });
 
