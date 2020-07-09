@@ -32,11 +32,10 @@ fetch('/get_json_obj', {method: 'POST'}).then(res => res.json()).then(function (
           if (count == 3){
             count = 0;
             body.appendChild(enter)
-            console.log(body)
           }
-          else{
+          else
+          {
             count++
           }
-};
-console.log(col)
+    };
 });

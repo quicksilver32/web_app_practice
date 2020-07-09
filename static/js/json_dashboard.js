@@ -24,8 +24,11 @@ img.setAttribute('style', "display: block;margin: 0 auto;")
 var div_img = document.getElementById('img')
 div_img.appendChild(img)
 if($("#checkbox").attr("checked") == 'checked') {
-        var checked = 1}
-        else {var checked = 0}
+    var checked = 1
+}
+else {
+    var checked = 0
+}
 var opt = document.getElementById('address').value
 var start = document.getElementById('start_period').value
 var end = document.getElementById('end_period').value
@@ -35,11 +38,12 @@ function json_ajax_data(){
         img.remove()
         if (Object.keys(data['data']) == 0){
             var img2 = document.createElement('img')
-            img2.setAttribute('src', 'https://sun9-40.userapi.com/c846419/v846419463/cc08a/6t6ZwJ_T30M.jpg')
+            img2.setAttribute('src', 'https://s.tcdn.co/31a/96f/31a96f82-603e-3382-9012-f0a75a43c948/6.png')
             img2.setAttribute('style', "display: block;margin: 0 auto;")
+            img2.setAttribute('height', '300')
+            img2.setAttribute('width', '300')
             var div_img2 = document.getElementById('img')
             div_img2.appendChild(img2)
-            console.log(10)
             return false
         }
         if (data['type'] == '1') {
@@ -57,7 +61,7 @@ function json_ajax_data(){
             }
 
             var height = 300,
-                width = 1700,
+                width = 1500,
                 margin = 50
 
             var xAxisLength = width - 2 * margin;
@@ -146,18 +150,9 @@ function json_ajax_data(){
                 $("#" + id + "text").attr("style", "opacity: 0")
                     // отвели курсор с объекта (не учитываются переходы внутри элемента)
             });
-
             //Таблица по потреблению зданий
-            d3data = d3data.map(function(d) { return [d.address, d.room_count, d.сonsumption.toFixed(2)]; })
-            collumns = ['Address', 'Room Count', 'Consumption']
-
-            const rowTemplate = (d) => {
-              return `
-              <td>${d.Address}</td>
-              <td>${d.Room_Count}</td>
-              <td>${d.Consumption}</td>
-              `;
-            };
+            d3data = d3data.map(function(d) { return [d.address, d.room_count, d.сonsumption.toFixed(2), d.per_room]; })
+            collumns = ['Адрес', 'Кол-во квартир', 'Потребление', 'Потребление на квартиру']
 
             // select viz and append table
             const table = d3.select(".d3").append("table");
@@ -201,7 +196,7 @@ function json_ajax_data(){
             }
 
             var height = 300,
-                width = 1700,
+                width = 1500,
                 margin = 50
 
             var xAxisLength = width - 2 * margin;
@@ -303,9 +298,9 @@ function json_ajax_data(){
             });
 
         //ТАБЛИЦА ПО ПОТРЕБЛЕНИЮ 1 ДОМА ЗА ПЕРИОД
-            d3data = d3data.map(function(d) { return [d.dt, d.room_count, d.сonsumption.toFixed(2)]; })
+            d3data = d3data.map(function(d) { return [d.dt, d.room_count, d.сonsumption.toFixed(2), d.per_room]; })
 
-            collumns = ['Date', 'Room Count', 'Consumption']
+            collumns = ['Дата', 'Кол-во квартир', 'Потребление', 'Потребление на квартиру']
 
             // select viz and append table
             const table = d3.select(".d3").append("table");
