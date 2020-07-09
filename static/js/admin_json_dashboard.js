@@ -79,8 +79,10 @@ $("#get_json").click(function(){
             img.remove()
             if (Object.keys(data['data']) == 0){
                 var img2 = document.createElement('img')
-                img2.setAttribute('src', 'https://sun9-40.userapi.com/c846419/v846419463/cc08a/6t6ZwJ_T30M.jpg')
+                img2.setAttribute('src', 'https://s.tcdn.co/31a/96f/31a96f82-603e-3382-9012-f0a75a43c948/6.png')
                 img2.setAttribute('style', "display: block;margin: 0 auto;")
+                img2.setAttribute('height', '300')
+                img2.setAttribute('width', '300')
                 var div_img2 = document.getElementById('img')
                 div_img2.appendChild(img2)
                 return false
